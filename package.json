@@ -1,5 +1,5 @@
 {
-  "name": "melquíades'-manuscripts:-one-hundred-years",
+  "name": "the-book",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,8 @@
     "lucide-react": "^0.561.0",
     "react-dom": "^19.2.3",
     "react": "^19.2.3",
-    "framer-motion": "^12.23.26"
+    "framer-motion": "^12.23.26",
+    "idb-keyval": "6.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

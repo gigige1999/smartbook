@@ -1,292 +1,526 @@
-import { StoryPhase, Character } from './types';
+
+import { StoryPhase, Character, Book, JourneyNode, NetworkNode, NetworkLink, LotRStoryPage } from './types';
+
+export const BOOKS: Book[] = [
+  {
+    id: '100years',
+    title: 'One Hundred Years of Solitude',
+    author: 'Gabriel García Márquez',
+    description: 'A cycle of time, solitude, and magical realism in Macondo.',
+    coverColor: '#2c241b',
+    accentColor: '#8a7a5f',
+    locked: false
+  },
+  {
+    id: 'red_black',
+    title: 'The Red and the Black',
+    author: 'Stendhal',
+    description: 'Ambition, hypocrisy, and the psychology of Julien Sorel.',
+    coverColor: '#1a1a1a',
+    accentColor: '#cf1313',
+    locked: false
+  },
+  {
+    id: 'lotr',
+    title: 'The Lord of the Rings',
+    author: 'J.R.R. Tolkien',
+    description: 'One Ring to rule them all, One Ring to find them.',
+    coverColor: '#1a2a1a',
+    accentColor: '#d4af37',
+    locked: false
+  }
+];
 
 export const STORY_PHASES: StoryPhase[] = [
   {
     id: 1,
-    title: "The Founding",
-    description: "José Arcadio Buendía and Úrsula Iguarán leave Riohacha to find a new home. They dream of a city of mirrors made of ice and name it Macondo.",
-    imagePrompt: "A group of weary travelers setting up tents in a jungle clearing near a river with polished stones like prehistoric eggs, sepia sketch style, mysterious atmosphere"
+    title: "The Genesis of Macondo",
+    description: "José Arcadio Buendía and Úrsula Iguarán cross the mountains to found a city of mirrors. Melquíades arrives with magnets and telescopes, sparking a fever of invention.",
+    imagePrompt: "A group of pioneers building a village of mud and cane by a clear river, surreal sepia sketch"
   },
   {
     id: 2,
-    title: "The Gypsies & Ice",
-    description: "Melquíades arrives with magnets and magnifying glasses. José Arcadio Buendía discovers ice, believing it to be the greatest invention of our time.",
-    imagePrompt: "An old gypsy holding a block of glowing ice in a tropical tent, amazed onlookers, rusty lake art style, dark outlines, muted colors"
+    title: "The Insomnia Plague",
+    description: "A silent plague strikes the town. People lose the ability to sleep and then their memories. They must label everything—'This is a cow, it must be milked'—to survive.",
+    imagePrompt: "Handwritten labels hanging from every object in a dusty house, shadows of people with wide eyes, surreal art"
   },
   {
     id: 3,
-    title: "The Insomnia Plague",
-    description: "Rebecca arrives bringing the sickness. The town forgets the names of things. They label everything: 'This is a cow, she must be milked'.",
-    imagePrompt: "A cow with a sign hanging on it that says 'COW', surreal, foggy atmosphere, hand-drawn vintage style"
+    title: "The Endless Civil Wars",
+    description: "Colonel Aureliano Buendía instigates thirty-two armed uprisings and loses them all. He retreats into his workshop to craft little gold fishes, over and over.",
+    imagePrompt: "A tired soldier in a dusty uniform sitting at a workbench making tiny golden fish, thousands of fishes reflecting light"
   },
   {
-    id: 4,
-    title: "The 32 Wars",
-    description: "Colonel Aureliano Buendía starts thirty-two uprisings and loses them all. He retires to make little gold fishes in his workshop.",
-    imagePrompt: "A tired soldier in a workshop crafting tiny golden fish, shadows, solitude, melancholic sketch"
+    id: 4, 
+    title: "The Banana Massacre",
+    description: "The American Fruit Company arrives. A strike leads to a massacre at the station. Three thousand bodies are loaded onto a train and dumped into the sea, then the rain begins.",
+    imagePrompt: "A ghostly train passing through heavy tropical rain, shadowed figures, dark surrealism"
   },
   {
     id: 5,
-    title: "The Banana Company",
-    description: "The Americans arrive. Macondo is transformed. The massacre at the train station happens, but later, no one remembers it.",
-    imagePrompt: "A train station filled with yellow butterflies and shadows, ominous atmosphere, vintage illustration style"
+    title: "The Five-Year Rain",
+    description: "It rains for four years, eleven months, and two days. Macondo dissolves into the mud. The spirit of the town breaks as the Buendía family retreats further into solitude.",
+    imagePrompt: "An old mansion slowly being reclaimed by vines and water, a lonely figure at a window, ink sketch"
   },
   {
     id: 6,
-    title: "The Rains",
-    description: "It rained for four years, eleven months, and two days. The town dissolves in the dampness.",
-    imagePrompt: "A wooden house rotting in heavy rain, overgrown vegetation, gloomy and wet, pencil sketch style"
-  },
-  {
-    id: 7,
-    title: "The End",
-    description: "Aureliano Babilonia deciphers the parchments. A hurricane of wind wipes Macondo from the face of the earth.",
-    imagePrompt: "A man reading parchments while a whirlwind destroys a house made of mirrors, apocalyptic sketch, swirling lines"
+    title: "The Final Parchment",
+    description: "Aureliano Babilonia finally deciphers Melquíades' manuscripts at the moment the last of the line is carried away by ants. A wind wipes Macondo from the face of the earth.",
+    imagePrompt: "An ancient manuscript being blown away by a hurricane, a ruined city in the background, catastrophic beauty"
   }
 ];
 
 export const BUENDIA_FAMILY: Character[] = [
-  // --- External Key Figures (Gen 0) ---
+  { id: 'jab', name: "José Arcadio Buendía", relation: "Patriarch", description: "Founder of Macondo, dreamer of the infinite, driven to madness by knowledge and the ghosts of his past.", imagePrompt: "Old man with wild hair tied to a chestnut tree, talking to ghosts, sepia sketch", generation: 1, type: 'FAMILY', symbol: 'FlaskConical', partner: 'ursula' },
+  { id: 'ursula', name: "Úrsula Iguarán", relation: "Matriarch", description: "The backbone of the family who lives to be over 100 years old, witnessing the entire cycle of pride and ruin.", imagePrompt: "Ancient woman with a shawl, blind but seeing everything, holding a bunch of keys", generation: 1, type: 'FAMILY', symbol: 'Home', partner: 'jab' },
+  { id: 'melquiades', name: "Melquíades", relation: "Gypsy / Prophet", description: "The scribe of the manuscripts that contain the entire history of the family, written in Sanskrit.", imagePrompt: "Gypsy with a large hat and dark eyes, surrounded by parchment and alchemy tools", generation: 0, type: 'EXTERNAL', symbol: 'Scroll' },
+  { id: 'pilar', name: "Pilar Ternera", relation: "Oracle", description: "A woman of earth and cards who knows the Buendía men better than they know themselves.", imagePrompt: "A woman in a colorful dress reading tarot cards by candlelight, earthy and powerful", generation: 0, type: 'EXTERNAL', symbol: 'Sparkles' },
+  { id: 'ja_hijo', name: "José Arcadio", relation: "Son (2nd Gen)", description: "A man of massive strength and primitive instincts who returns from sea covered in tattoos.", imagePrompt: "A giant of a man covered in primitive tattoos, wearing sailor clothes, fierce expression", generation: 2, type: 'FAMILY', symbol: 'Anchor', parents: ['jab', 'ursula'], partner: 'rebeca' },
+  { id: 'aureliano', name: "Colonel Aureliano Buendía", relation: "Son (2nd Gen)", description: "The legendary warrior who loses 32 wars and finds peace only in crafting gold fishes.", imagePrompt: "Soldier with intense eyes, sitting alone in a room full of golden fish", generation: 2, type: 'FAMILY', symbol: 'Fish', parents: ['jab', 'ursula'] },
+  { id: 'rebeca', name: "Rebeca", relation: "Adopted Daughter", description: "The girl who eats earth and whitewash, bringing the insomnia plague to Macondo.", imagePrompt: "Girl in a Victorian dress eating soil from a flowerpot, haunting atmosphere", generation: 2, type: 'FAMILY', symbol: 'Droplets', parents: ['jab', 'ursula'], partner: 'ja_hijo' },
+  { id: 'amaranta', name: "Amaranta", relation: "Daughter (2nd Gen)", description: "A woman who sews her own funeral shroud and dies in virginal solitude.", imagePrompt: "Woman weaving a black shroud by candlelight, sorrowful expression", generation: 2, type: 'FAMILY', symbol: 'Scissors', parents: ['jab', 'ursula'] },
+  { id: 'arcadio', name: "Arcadio", relation: "Grandson (3rd Gen)", description: "The cruelest ruler of Macondo, executed by firing squad.", imagePrompt: "Stern man in military uniform standing before a firing squad", generation: 3, type: 'FAMILY', symbol: 'Sword', parents: ['ja_hijo', 'pilar'], partner: 'santa_sofia' },
+  { id: 'aureliano_jose', name: "Aureliano José", relation: "Grandson (3rd Gen)", description: "He sought his aunt Amaranta's love and died in the wars.", imagePrompt: "Young soldier looking longingly at a woman's portrait, shadows of battle", generation: 3, type: 'FAMILY', symbol: 'Cross', parents: ['aureliano', 'pilar'] },
+  { id: 'santa_sofia', name: "Santa Sofía", relation: "Daughter-in-law", description: "The invisible woman who served the family for generations with silent devotion.", imagePrompt: "A pale, quiet woman sweeping the floor of a large dusty mansion", generation: 0, type: 'EXTERNAL', symbol: 'Footprints' },
+  { id: 'remedios_bella', name: "Remedios the Beauty", relation: "Great-granddaughter (4th Gen)", description: "The most beautiful woman who ascended to heaven while folding sheets.", imagePrompt: "Woman floating into the sky wrapped in white linen sheets, glowing light", generation: 4, type: 'FAMILY', symbol: 'Sparkles', parents: ['arcadio', 'santa_sofia'] },
+  { id: 'ja_segundo', name: "José Arcadio Segundo", relation: "Great-grandson (4th Gen)", description: "The only witness to the banana massacre.", imagePrompt: "Man with a tired face looking at ancient scrolls, train tracks in the background", generation: 4, type: 'FAMILY', symbol: 'Scroll', parents: ['arcadio', 'santa_sofia'] },
+  { id: 'a_segundo', name: "Aureliano Segundo", relation: "Great-grandson (4th Gen)", description: "A man of excessive banquets and boundless wealth.", imagePrompt: "A man at a table full of exotic food and wine, laughing with a woman", generation: 4, type: 'FAMILY', symbol: 'Music', parents: ['arcadio', 'santa_sofia'], partner: 'fernanda' },
+  { id: 'fernanda', name: "Fernanda del Carpio", relation: "Wife (4th Gen)", description: "A rigid aristocrat who brought gold chamber pots to Macondo.", imagePrompt: "A woman in a high-collared dress looking sternly at a messy room", generation: 0, type: 'EXTERNAL', symbol: 'Crown' },
+  { id: 'meme', name: "Meme", relation: "5th Generation", description: "Her love for a mechanic led to her silence and yellow butterflies.", imagePrompt: "A girl playing the clavichord, surrounded by dozens of yellow butterflies", generation: 5, type: 'FAMILY', symbol: 'Bug', parents: ['a_segundo', 'fernanda'] },
+  { id: 'ja_v', name: "José Arcadio (V)", relation: "5th Generation", description: "Sent to Rome to become a Pope, he returned to find only ruins.", imagePrompt: "A man in semi-religious clothing sitting in a courtyard", generation: 5, type: 'FAMILY', symbol: 'BookOpen', parents: ['a_segundo', 'fernanda'] },
+  { id: 'amaranta_ursula', name: "Amaranta Úrsula", relation: "6th Generation", description: "She tried to restore Macondo with joy, unknowingly loving her own nephew.", imagePrompt: "A modern woman in a vintage house, painting and singing", generation: 6, type: 'FAMILY', symbol: 'Wind', parents: ['a_segundo', 'fernanda'], partner: 'aureliano_babilonia' },
+  { id: 'aureliano_babilonia', name: "Aureliano Babilonia", relation: "The Decoder (6th Gen)", description: "The illegitimate son who finally deciphers the manuscripts.", imagePrompt: "Young man reading ancient scrolls in a room covered in dust", generation: 6, type: 'FAMILY', symbol: 'FileText', parents: ['meme'] },
+  { id: 'last_child', name: "Aureliano (The Last)", relation: "7th Generation", description: "The child born with a pig's tail, marking the end.", imagePrompt: "A tiny infant carried away by a swarm of ants", generation: 7, type: 'FAMILY', symbol: 'Bug', parents: ['amaranta_ursula', 'aureliano_babilonia'] }
+];
+
+export const LOTR_CHARACTERS: Character[] = [
+  // FORCES OF LIGHT (1-15)
   {
-    id: 'ext_melquiades',
-    name: "Melquíades",
-    relation: "The Prophet",
-    description: "Bring science and the parchments. Even after death, his ghost returns to guide the family.",
-    imagePrompt: "Portrait of an old gypsy with a heavy hat and raven feathers, writing on ancient parchments, mysterious, rusty lake style",
-    generation: 0,
-    type: 'EXTERNAL',
-    symbol: 'Scroll'
+    id: 'eru',
+    name: "伊露维塔 (Eru Ilúvatar)",
+    nameEn: "Eru Ilúvatar",
+    relation: "造物主",
+    relationEn: "The Creator",
+    description: "独一之神，通过大乐章创造了阿尔达世界，掌控着不灭之火与最终的命运。",
+    descriptionEn: "The One God who created the world through the Music of the Ainur. Master of the Flame Imperishable.",
+    imagePrompt: "Cosmic entity of light and pure thought, creating galaxies with divine music, ethereal and infinite",
+    generation: -1,
+    type: '维拉/神明',
+    typeEn: 'Vala',
+    symbol: 'Sparkles',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "奏响大乐章，孕育了精灵与人类的生命。",
+    deedsEn: "Sang the Ainulindalë and conceived all life in Arda."
   },
   {
-    id: 'ext_pilar',
-    name: "Pilar Ternera",
-    relation: "The Seer",
-    description: "Card reader. bore children to two Buendia men. Lived to be over 140, witnessing the entire cycle.",
-    imagePrompt: "Portrait of a laughing woman holding tarot cards in a smoky room, mystical atmosphere, rusty lake style",
-    generation: 0,
-    type: 'EXTERNAL',
-    symbol: 'Sparkles'
+    id: 'manwe',
+    name: "曼威 (Manwë)",
+    nameEn: "Manwë",
+    relation: "众维拉之首",
+    relationEn: "Elder King",
+    description: "大气的主宰，伊露维塔意志的代表，居住在泰尼魁提尔山顶，通过巨鹰俯瞰中土。",
+    descriptionEn: "King of the Valar and lord of the sky. He watches over Middle-earth from the highest peak of Taniquetil.",
+    imagePrompt: "King on a white throne atop a snowy mountain peak, blue robes, holding a sapphire staff, eagles nearby",
+    generation: -1,
+    type: '维拉/神明',
+    typeEn: 'Valar',
+    symbol: 'Wind',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "统领众神对抗莫苟斯，指挥巨鹰参与历次关键战役。",
+    deedsEn: "Leader of the Valar against darkness and commander of the Great Eagles."
+  },
+  {
+    id: 'varda',
+    name: "瓦尔妲 (Varda)",
+    nameEn: "Varda Elentári",
+    relation: "星辰女王",
+    relationEn: "Queen of the Stars",
+    description: "光之主宰，创造了群星，是精灵们最爱戴的维拉，索伦最畏惧的存在。",
+    descriptionEn: "The Lady of Light and creator of the stars. She is revered by the Elves and feared by Sauron.",
+    imagePrompt: "Radiant goddess standing among galaxies, hair like stardust, creating constellations with her hands",
+    generation: -1,
+    type: '维拉/神明',
+    typeEn: 'Valar',
+    symbol: 'Sparkles',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在精灵觉醒前点亮群星，她的圣名足以退散黑暗。",
+    deedsEn: "Kindled the stars to guide the Elves. Her name banishes shadows."
+  },
+  {
+    id: 'gandalf',
+    name: "甘道夫 (Gandalf)",
+    nameEn: "Gandalf the White",
+    relation: "白袍巫师 / 导师",
+    relationEn: "The White Wizard / Mentor",
+    description: "从灰袍重生为白袍，中土自由民的精神支柱，指引远征队走向胜利。",
+    descriptionEn: "Resurrected as the White Wizard, he serves as the beacon of hope and guidance for the Fellowship.",
+    imagePrompt: "Gandalf the White, holding a luminous white staff, silver hair, regal white robes",
+    generation: -1,
+    type: '迈雅/巫师',
+    typeEn: 'Maia',
+    symbol: 'Sparkles',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在莫瑞亚独自抵挡炎魔。于帕兰诺平原组织刚铎守军。",
+    deedsEn: "Defeated the Balrog in Moria and led the defense of Minas Tirith."
+  },
+  {
+    id: 'aragorn',
+    name: "阿拉贡 (Aragorn)",
+    nameEn: "Aragorn II Elessar",
+    relation: "重联王国国王",
+    relationEn: "High King",
+    description: "从游侠“神行客”到刚铎之王，重铸了圣剑纳西尔，恢复了人皇的荣光。",
+    descriptionEn: "From Strider the Ranger to Elessar the King, he accepted his destiny to restore Gondor.",
+    imagePrompt: "Aragorn with a crown, holding the sword Anduril, heroic lighting, battle-worn steel armor",
+    generation: -1,
+    type: '人类',
+    typeEn: 'Man',
+    symbol: 'Sword',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "统领亡灵军团席卷海盗。在黑门前向索伦发起挑战。",
+    deedsEn: "Commanded the Army of the Dead and challenged Sauron at the Black Gate."
+  },
+  {
+    id: 'galadriel',
+    name: "加拉德瑞尔 (Galadriel)",
+    nameEn: "Galadriel",
+    relation: "黄金森林领主",
+    relationEn: "Lady of Light",
+    description: "精灵三戒之一能雅的持有者，拥有预知未来与对抗邪恶的强大魔力。",
+    descriptionEn: "Queen of Lothlórien and bearer of Nenya. She possesses immense magical power and foresight.",
+    imagePrompt: "Galadriel in white dress, holding a silver chalice, glowing ethereal skin",
+    generation: -1,
+    type: '精灵',
+    typeEn: 'Elf',
+    symbol: 'Droplets',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "拒绝了至尊魔戒的诱惑。最终摧毁了多尔哥多的邪恶要塞。",
+    deedsEn: "Resisted the One Ring and destroyed the fortress of Dol Guldur."
+  },
+  {
+    id: 'elrond',
+    name: "埃尔隆德 (Elrond)",
+    nameEn: "Elrond Peredhel",
+    relation: "林谷领主 / 半精灵",
+    relationEn: "Lord of Rivendell",
+    description: "智慧超群的治愈者，召集了决定世界命运的埃尔隆德会议。",
+    descriptionEn: "A wise healer and lore-master. He hosted the Council that decided the Ring's fate.",
+    imagePrompt: "Elrond of Rivendell, wise elven lord, silver circlet, ancient nobility",
+    generation: -1,
+    type: '精灵',
+    typeEn: 'Elf',
+    symbol: 'Wind',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "参与了最后同盟大战。持有气之戒维雅守护着避难所林谷。",
+    deedsEn: "Fought in the Last Alliance and protected Rivendell with Vilya."
+  },
+  {
+    id: 'frodo',
+    name: "弗罗多 (Frodo Baggins)",
+    nameEn: "Frodo Baggins",
+    relation: "持戒人",
+    relationEn: "Ring-bearer",
+    description: "背负着全中土最沉重的负担，在山姆的陪伴下走完了最后的一英里。",
+    descriptionEn: "The humble Hobbit of the Shire who carried the ultimate burden to the fires of Mount Doom.",
+    imagePrompt: "Frodo in green cloak, glowing ring around neck, determined face",
+    generation: -1,
+    type: '霍比特人',
+    typeEn: 'Hobbit',
+    symbol: 'Ring',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "跨越魔多荒原，在末日火山完成了摧毁魔戒的使命。",
+    deedsEn: "Traversed Mordor to destroy the Ring in the Crack of Doom."
+  },
+  {
+    id: 'samwise',
+    name: "山姆 (Samwise Gamgee)",
+    nameEn: "Samwise Gamgee",
+    relation: "弗罗多的仆从与挚友",
+    relationEn: "The Stalwart Friend",
+    description: "平凡中的伟大者，他的忠诚与坚毅是魔戒无法腐蚀的防线。",
+    descriptionEn: "The true hero of the story, whose simple loyalty kept the quest alive against all odds.",
+    imagePrompt: "Samwise Gamgee carrying a backpack, brave face, rustic hobbit look",
+    generation: -1,
+    type: '霍比特人',
+    typeEn: 'Hobbit',
+    symbol: 'Heart',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "击退巨蛛尸罗。在弗罗多力竭时将其背上火山。",
+    deedsEn: "Defeated Shelob and carried Frodo up the slopes of Mount Doom."
+  },
+  {
+    id: 'legolas',
+    name: "莱戈拉斯 (Legolas)",
+    nameEn: "Legolas Greenleaf",
+    relation: "幽暗森林王子",
+    relationEn: "Prince of Mirkwood",
+    description: "远征队的神箭手，代表精灵种族展现出超凡的战斗技巧。",
+    descriptionEn: "The archer of the Fellowship, representing the Elves with unmatched skill.",
+    imagePrompt: "Legolas archer, long blonde hair, pulling back a silver bow",
+    generation: -1,
+    type: '精灵',
+    typeEn: 'Elf',
+    symbol: 'Target',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在圣盔谷与帕兰诺平原击杀无数敌军。与矮人金雳结为挚友。",
+    deedsEn: "Fought at Helm's Deep and Pelennor Fields. Best friend of Gimli."
+  },
+  {
+    id: 'gimli',
+    name: "金雳 (Gimli)",
+    nameEn: "Gimli son of Glóin",
+    relation: "矮人战士",
+    relationEn: "Dwarf Warrior",
+    description: "坚韧不拔的矮人代表，手持双刃斧，性格刚毅且重情重义。",
+    descriptionEn: "A fierce and steadfast Dwarf who represents his people in the quest.",
+    imagePrompt: "Gimli the dwarf with magnificent beard, holding a double-headed axe",
+    generation: -1,
+    type: '矮人',
+    typeEn: 'Dwarf',
+    symbol: 'Bone',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在圣盔谷展现了惊人的战力。第一个获准进入西方的矮人。",
+    deedsEn: "Hero of Helm's Deep and first Dwarf allowed into the West."
+  },
+  {
+    id: 'boromir',
+    name: "波洛米尔 (Boromir)",
+    nameEn: "Boromir of Gondor",
+    relation: "刚铎长子",
+    relationEn: "Captain of Gondor",
+    description: "虽然曾受魔戒诱惑，但最终通过英勇牺牲救赎了灵魂。",
+    descriptionEn: "A brave captain of Gondor who found redemption through a heroic sacrifice.",
+    imagePrompt: "Boromir blowing a silver horn, surrounded by orcs, falling under many arrows",
+    generation: -1,
+    type: '人类',
+    typeEn: 'Man',
+    symbol: 'Shield',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在阿蒙汉独力保护梅里与皮平，力战而亡。",
+    deedsEn: "Died defending Merry and Pippin at Amon Hen."
+  },
+  {
+    id: 'arwen',
+    name: "阿尔温 (Arwen Undómiel)",
+    nameEn: "Arwen Undómiel",
+    relation: "瑞文戴尔之星 / 王后",
+    relationEn: "Evenstar / Queen",
+    description: "为了爱情选择成为凡人，她是阿拉贡力量的源泉。",
+    descriptionEn: "The daughter of Elrond who chose mortality for the love of Aragorn.",
+    imagePrompt: "Arwen in a flowing gown, standing in a moonlit elven garden",
+    generation: -1,
+    type: '精灵',
+    typeEn: 'Elf',
+    symbol: 'Sparkles',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "放弃了永生，在中土第四纪元成为人皇之妻。",
+    deedsEn: "Renounced her immortality to become Queen of Gondor."
+  },
+  {
+    id: 'eowyn',
+    name: "伊欧玟 (Éowyn)",
+    nameEn: "Éowyn of Rohan",
+    relation: "洛汗王女 / 盾女",
+    relationEn: "Shieldmaiden",
+    description: "不愿在战火中枯萎的女性英雄，展现了凡人超越命运的勇气。",
+    descriptionEn: "A noble shieldmaiden who defied tradition to fight for her people.",
+    imagePrompt: "Eowyn in armor, removing helmet, facing a terrifying shadow king",
+    generation: -1,
+    type: '人类',
+    typeEn: 'Man',
+    symbol: 'Sword',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在帕兰诺平原战役中亲手击杀了安格玛巫王。",
+    deedsEn: "Slew the Witch-king of Angmar on the Pelennor Fields."
+  },
+  {
+    id: 'faramir',
+    name: "法拉米尔 (Faramir)",
+    nameEn: "Faramir",
+    relation: "刚铎统帅",
+    relationEn: "Captain of Gondor",
+    description: "拥有卓越品德的将领，即便在压力下也拒绝夺取魔戒。",
+    descriptionEn: "The younger son of Denethor, wise and resistant to the Ring's lure.",
+    imagePrompt: "Faramir in green and brown ranger cloak, holding a sword, noble gaze",
+    generation: -1,
+    type: '人类',
+    typeEn: 'Man',
+    symbol: 'Compass',
+    faction: '正义阵营',
+    factionEn: 'Forces of Light',
+    deeds: "在伊西立安释放了弗罗多。成功守卫了刚铎的东部边疆。",
+    deedsEn: "Released the Ring-bearer in Ithilien and defended Gondor's borders."
   },
 
-  // --- Generation 1 ---
+  // FORCES OF SHADOW (16-20)
   {
-    id: 'gen1_jose',
-    name: "José Arcadio Buendía",
-    relation: "The Patriarch",
-    description: "Founder of Macondo. Obsessed with science. Died tied to a chestnut tree speaking Latin.",
-    imagePrompt: "Portrait of a wild-eyed man tied to a large chestnut tree, surrounded by ghosts, surreal sketch, rusty lake style",
-    generation: 1,
-    type: 'FAMILY',
-    partner: 'gen1_ursula',
-    symbol: 'FlaskConical'
+    id: 'sauron',
+    name: "索伦 (Sauron)",
+    nameEn: "Sauron Gorthaur",
+    relation: "黑暗魔君",
+    relationEn: "The Dark Lord",
+    description: "魔戒铸造者，企图通过一枚戒指统治所有自由种族的邪灵。",
+    descriptionEn: "The Lieutenant of Morgoth and creator of the One Ring.",
+    imagePrompt: "A giant flaming eye atop a dark tower, chaotic fiery clouds",
+    generation: -1,
+    type: '黑暗势力',
+    typeEn: 'Maia',
+    symbol: 'Eye',
+    faction: '黑暗势力',
+    factionEn: 'Forces of Shadow',
+    deeds: "铸造至尊魔戒，诱使人类堕落，几乎摧毁了中土文明。",
+    deedsEn: "Forged the Ring and corrupted the hearts of Men."
   },
   {
-    id: 'gen1_ursula',
-    name: "Úrsula Iguarán",
-    relation: "The Matriarch",
-    description: "The pillar of the house. Lived 115+ years. Died blind but kept the house standing.",
-    imagePrompt: "Portrait of a tiny, ancient woman in colonial dress, blind white eyes, holding a small candy animal, sepia sketch",
-    generation: 1,
-    type: 'FAMILY',
-    partner: 'gen1_jose',
-    symbol: 'Home'
-  },
-
-  // --- Generation 2 ---
-  {
-    id: 'gen2_jose_arcadio',
-    name: "José Arcadio",
-    relation: "The Prodigal Son",
-    description: "Massive strength. Married his adopted sister Rebeca. Died mysteriously with the smell of gunpowder.",
-    imagePrompt: "Portrait of a giant man with tattoos of anchors, rough appearance, gunpowder smoke, rusty lake style",
-    generation: 2,
-    type: 'FAMILY',
-    parents: ['gen1_jose', 'gen1_ursula'],
-    symbol: 'Anchor'
+    id: 'saruman',
+    name: "萨鲁曼 (Saruman)",
+    nameEn: "Saruman the Multi-colored",
+    relation: "堕落巫师",
+    relationEn: "The Fallen Wizard",
+    description: "曾经的白道会之首，因痴迷于机械与力量而背叛了使命。",
+    descriptionEn: "The head of the Istari who fell to corruption and ambition.",
+    imagePrompt: "Saruman standing on Orthanc balcony, long white beard, multi-colored robes",
+    generation: -1,
+    type: '黑暗势力',
+    typeEn: 'Maia',
+    symbol: 'Circle',
+    faction: '黑暗势力',
+    factionEn: 'Forces of Shadow',
+    deeds: "建立了强弩兵军团。摧毁了法贡森林边缘的生态。",
+    deedsEn: "Created the Uruk-hai and industrialized Isengard."
   },
   {
-    id: 'gen2_aureliano',
-    name: "Col. Aureliano Buendía",
-    relation: "The Warrior",
-    description: "Fought 32 wars, lost them all. Fathered 17 sons. Died making gold fish.",
-    imagePrompt: "Portrait of a colonel in uniform, solemn face, standing in a circle of chalk, holding a gold fish, vintage style",
-    generation: 2,
-    type: 'FAMILY',
-    parents: ['gen1_jose', 'gen1_ursula'],
-    symbol: 'Fish'
+    id: 'gollum',
+    name: "咕噜 (Gollum / Sméagol)",
+    nameEn: "Gollum",
+    relation: "魔戒囚徒",
+    relationEn: "Creature of the Ring",
+    description: "被贪婪扭曲的生命，在双重人格的折磨下走向了最后的深渊。",
+    descriptionEn: "A creature warped by the Ring's power over hundreds of years.",
+    imagePrompt: "Gollum with large blue eyes, hiding in a dark cave, holding a small ring",
+    generation: -1,
+    type: '黑暗势力',
+    // Fixed duplicate property: removed redundant 'typeEn' entry on line 418.
+    typeEn: 'Creature',
+    symbol: 'Skull',
+    faction: '黑暗势力',
+    factionEn: 'Forces of Shadow',
+    deeds: "杀害朋友夺取魔戒。作为向导指引了通往末日火山之路。",
+    deedsEn: "Killed for the Ring and guided Frodo into Mordor."
   },
   {
-    id: 'gen2_amaranta',
-    name: "Amaranta",
-    relation: "The Virgin",
-    description: "Rejected all suitors. Wore a black bandage on her hand until death. Wove her own shroud.",
-    imagePrompt: "Portrait of a severe woman with a black bandage on her hand, weaving a white shroud, rusty lake style",
-    generation: 2,
-    type: 'FAMILY',
-    parents: ['gen1_jose', 'gen1_ursula'],
-    symbol: 'Scissors'
+    id: 'witchking',
+    name: "安格玛巫王 (Witch-king)",
+    nameEn: "Witch-king of Angmar",
+    relation: "戒灵之首",
+    relationEn: "Lord of the Nazgûl",
+    description: "索伦最强大的仆从，凡人男子无法杀死的恐怖存在。",
+    descriptionEn: "The most powerful of the nine Nazgûl and leader of Sauron's armies.",
+    imagePrompt: "Shadowy knight on a winged beast, crown floating over a black void, iron mace",
+    generation: -1,
+    type: '黑暗势力',
+    typeEn: 'Wraith',
+    symbol: 'Skull',
+    faction: '黑暗势力',
+    factionEn: 'Forces of Shadow',
+    deeds: "围攻米那斯提力斯。在风云顶刺伤了弗罗多。",
+    deedsEn: "Led the siege of Minas Tirith and stabbed Frodo at Weathertop."
   },
   {
-    id: 'gen2_rebeca',
-    name: "Rebeca",
-    relation: "The Orphan",
-    description: "Adopted. Ate earth and whitewash. Married José Arcadio. Lived in solitude.",
-    imagePrompt: "Portrait of a woman with a bag of earth, looking guilty, cracks in the wall behind her, surreal sketch",
-    generation: 2,
-    type: 'FAMILY',
-    parents: ['gen1_jose', 'gen1_ursula'],
-    symbol: 'Bone'
-  },
-
-  // --- Generation 3 ---
-  {
-    id: 'gen3_arcadio',
-    name: "Arcadio",
-    relation: "The Dictator",
-    description: "Cruel ruler of Macondo. Executed by firing squad. 'To the memory of the liberals!'",
-    imagePrompt: "Portrait of a man in military uniform standing before a firing squad wall, defiant, rusty lake style",
-    generation: 3,
-    type: 'FAMILY',
-    parents: ['gen2_jose_arcadio'],
-    symbol: 'Sword'
-  },
-  {
-    id: 'gen3_aureliano_jose',
-    name: "Aureliano José",
-    relation: "The Obsessed",
-    description: "Obsessed with his aunt Amaranta. Shot in the back at the theatre.",
-    imagePrompt: "Portrait of a young soldier with a bleeding chest, holding a theatre ticket, surreal atmosphere",
-    generation: 3,
-    type: 'FAMILY',
-    parents: ['gen2_aureliano'],
-    symbol: 'Ticket'
-  },
-  {
-    id: 'gen3_17_aurelianos',
-    name: "The 17 Aurelianos",
-    relation: "The Ash Wednesday Sons",
-    description: "Sons of the Colonel. All marked with an Ash Wednesday cross. All assassinated.",
-    imagePrompt: "A group of shadowy men, each with an ash cross on their forehead, mysterious, hunting, rusty lake style",
-    generation: 3,
-    type: 'FAMILY',
-    parents: ['gen2_aureliano'],
-    symbol: 'Cross'
-  },
-
-  // --- Generation 4 ---
-  {
-    id: 'gen4_remedios',
-    name: "Remedios the Beauty",
-    relation: "The Ascended",
-    description: "Too beautiful for this world. Ascended to heaven while folding sheets.",
-    imagePrompt: "Portrait of a glowing woman floating into the sky wrapped in white sheets, yellow butterflies, ethereal",
-    generation: 4,
-    type: 'FAMILY',
-    parents: ['gen3_arcadio'],
-    symbol: 'Wind'
-  },
-  {
-    id: 'gen4_jose_segundo',
-    name: "José Arcadio Segundo",
-    relation: "The Survivor",
-    description: "Survived the Banana Massacre. Reading parchments in Melquíades' room until death.",
-    imagePrompt: "Portrait of a gaunt man surrounded by books and parchment, haunted eyes, monochrome sketch",
-    generation: 4,
-    type: 'FAMILY',
-    parents: ['gen3_arcadio'],
-    symbol: 'BookOpen'
-  },
-  {
-    id: 'gen4_aureliano_segundo',
-    name: "Aureliano Segundo",
-    relation: "The Hedonist",
-    description: "Lived with wife Fernanda and mistress Petra. His livestock multiplied magically.",
-    imagePrompt: "Portrait of a fat, happy man playing an accordion, surrounded by cows and rabbits, festive but surreal",
-    generation: 4,
-    type: 'FAMILY',
-    parents: ['gen3_arcadio'],
-    symbol: 'CircleDollarSign'
-  },
-  {
-    id: 'gen4_fernanda',
-    name: "Fernanda del Carpio",
-    relation: "The Queen",
-    description: "Wife of Aureliano Segundo. Religious, rigid, brought the golden chamber pot.",
-    imagePrompt: "Portrait of a woman in a heavy velvet queen's robe, holding a golden chamber pot, stern face, rusty lake style",
-    generation: 4,
-    type: 'EXTERNAL',
-    partner: 'gen4_aureliano_segundo',
-    symbol: 'Crown'
-  },
-  {
-    id: 'gen4_petra',
-    name: "Petra Cotes",
-    relation: "The Mistress",
-    description: "The love of Aureliano Segundo's life. Her love made nature fertile.",
-    imagePrompt: "Portrait of a woman with a tiger, abundant vegetation in background, warm colors, surreal sketch",
-    generation: 4,
-    type: 'EXTERNAL',
-    symbol: 'PawPrint'
-  },
-
-  // --- Generation 5 ---
-  {
-    id: 'gen5_meme',
-    name: "Meme (Renata)",
-    relation: "The Silenced",
-    description: "Loved a mechanic. Sent to a convent. Took a vow of silence.",
-    imagePrompt: "Portrait of a nun with a sad face, surrounded by yellow butterflies, iron bars in foreground, rusty lake style",
-    generation: 5,
-    type: 'FAMILY',
-    parents: ['gen4_aureliano_segundo', 'gen4_fernanda'],
-    symbol: 'Music'
-  },
-  {
-    id: 'gen5_jose_arcadio_ii',
-    name: "José Arcadio (II)",
-    relation: "The Pope",
-    description: "Sent to Rome to be Pope. Returned corrupt. Drowned by children for gold.",
-    imagePrompt: "Portrait of a man in decadent robes, water dripping from him, gold coins floating, dark atmosphere",
-    generation: 5,
-    type: 'FAMILY',
-    parents: ['gen4_aureliano_segundo', 'gen4_fernanda'],
-    symbol: 'Droplets'
-  },
-  {
-    id: 'gen5_amaranta_ursula',
-    name: "Amaranta Úrsula",
-    relation: "The Modern Woman",
-    description: "Returned from Europe. Unknowingly fell in love with her nephew Aureliano.",
-    imagePrompt: "Portrait of a fashionable woman with short hair, holding a silver necklace, modern but tragic, sketch style",
-    generation: 5,
-    type: 'FAMILY',
-    parents: ['gen4_aureliano_segundo', 'gen4_fernanda'],
-    symbol: 'Footprints'
-  },
-
-  // --- Generation 6 ---
-  {
-    id: 'gen6_aureliano',
-    name: "Aureliano Babilonia",
-    relation: "The Scholar",
-    description: "Bastard son of Meme. Hid in the house. Deciphered the manuscripts.",
-    imagePrompt: "Portrait of a scholarly man reading Sanskrit parchments, wind blowing papers, ants at his feet, rusty lake style",
-    generation: 6,
-    type: 'FAMILY',
-    parents: ['gen5_meme'],
-    symbol: 'FileText'
-  },
-
-  // --- Generation 7 ---
-  {
-    id: 'gen7_child',
-    name: "The Child",
-    relation: "The End of the Line",
-    description: "Born with a pig's tail. Eaten by ants. The prophecy is fulfilled.",
-    imagePrompt: "A newborn baby with a small pig's tail, being carried away by a line of giant ants, apocalyptic, surreal sketch",
-    generation: 7,
-    type: 'FAMILY',
-    parents: ['gen6_aureliano', 'gen5_amaranta_ursula'],
-    symbol: 'Bug'
+    id: 'balrog',
+    name: "炎魔 (The Balrog)",
+    nameEn: "The Balrog of Morgoth",
+    relation: "远古邪灵",
+    relationEn: "Durin's Bane",
+    description: "潜伏在莫瑞亚深处的火焰与阴影，莫苟斯的随从。",
+    descriptionEn: "A demon of shadow and flame that lurks in the depths of Moria.",
+    imagePrompt: "Massive creature of fire and smoke, flaming whip, horns, darkness",
+    generation: -1,
+    type: '黑暗势力',
+    typeEn: 'Maia',
+    symbol: 'Zap',
+    faction: '黑暗势力',
+    factionEn: 'Forces of Shadow',
+    deeds: "摧毁了卡扎督姆王国的辉煌。最终与甘道夫同归于尽。",
+    deedsEn: "Destroyed the Kingdom of Khazad-dûm and faced Gandalf."
   }
+];
+
+export const LOTR_STORY: Record<string, LotRStoryPage[]> = {
+  part1: [
+    { id: 0, title: "第一部：护戒同盟 - 梗概", titleEn: "Book I: The Fellowship - Summary", content: "当至尊魔戒在夏尔重现时，比尔博·巴金斯的侄子弗罗多继承了这一沉重的负担。在巫师甘道夫的指引下，四位霍比特人踏上了寻找安全的逃亡之路，并在瑞文戴尔组建了跨越种族的护戒同盟。这支队伍在经历了雪山的险阻与莫瑞亚的黑暗后，在阿蒙汉的背叛中分崩离析，但也开启了更宏大的反抗序幕。", contentEn: "When the One Ring reappears in the Shire, Bilbo's nephew Frodo inherits the burden. Under Gandalf's guidance, the Hobbits flee for safety, forming a cross-race fellowship in Rivendell. After enduring mountain storms and the darkness of Moria, the group fractures at Amon Hen, yet begins a grander rebellion.", imagePrompt: "A golden ring sitting on a wooden table, mysterious shadows, cozy hobbit interior" },
+    { id: 1, title: "往昔阴影的觉醒", titleEn: "Shadows of the Past", content: "在夏尔平静的绿野下，甘道夫揭示了那枚不起眼的戒指背后的恐怖历史。它是索伦力量的根源，能够腐蚀意志。弗罗多决定背负这枚戒指离开家园，在山姆的忠实陪伴下跨过边境。他们身后的森林里，黑骑士的马蹄声正日益逼近。", contentEn: "In the quiet greens of the Shire, Gandalf reveals the terrifying history of the ring. It is the source of Sauron's power. Frodo decides to leave his home with Sam by his side, as the hoofbeats of Black Riders grow closer in the woods behind them.", imagePrompt: "Gandalf talking to Frodo by the fireplace, the ring glowing between them, intense shadows" },
+    { id: 2, title: "风云顶的血色祭奠", titleEn: "A Knife in the Dark", content: "在荒野中的风云顶，戒灵们追上了这些疲惫的旅人. 弗罗多在绝望中戴上戒指，却因此被安格玛巫王刺中了肩膀。虽然神行客阿拉贡奋力击退了幽灵，但致命的魔窟之剑留下的伤痕已经深入骨髓，弗罗多的生命正在冰冷的阴影中迅速消逝。", contentEn: "At Weathertop, the Nazgul catch the travelers. Frodo puts on the ring and is stabbed by the Witch-king. Though Strider fights back, the Morgul blade's wound is deep, and Frodo's life begins to fade into the cold shadows.", imagePrompt: "Dark specters surrounding a campfire at night, a silver blade shining in the gloom" },
+    { id: 3, title: "埃尔隆德会议：命运的枢轴", titleEn: "The Council of Elrond", content: "在精灵的避难所瑞文戴尔，各族精英汇聚一堂。在激烈的争论中，弗罗多挺身而出，说出了那句改变历史的话：“我会带走戒指，尽管我不知道路。”于是，由九人组成的护戒远征队诞生，象征着中土世界对抗黑暗的最后希望。", contentEn: "In Rivendell, world leaders gather. Amidst fierce debate, Frodo steps forward: 'I will take the Ring, though I do not know the way.' The Fellowship of Nine is born, Middle-earth's final hope against the rising shadow.", imagePrompt: "An ancient stone balcony in an elven city, nine figures standing in a circle, autumn leaves" },
+    { id: 4, title: "卡扎督姆桥上的绝唱", titleEn: "The Bridge of Khazad-dûm", content: "在矮人古老的废墟莫瑞亚，远征队遭遇了被唤醒的远古恐惧——炎魔。在狭窄的石桥上，甘道夫独自面对这团火焰与阴影，用生命守护了同伴的撤退。他那句绝响般的“你不能通过”，伴随着他一同坠入那深不见底的黑暗深渊。", contentEn: "In the dwarven ruins of Moria, the Fellowship faces an ancient terror—the Balrog. On a narrow stone bridge, Gandalf stands alone against fire and shadow, sacrificing himself. His cry 'You shall not pass!' echoes as he falls into the dark abyss.", imagePrompt: "A bridge of stone, a wizard with a staff standing against a creature of fire and shadow" },
+    { id: 5, title: "破碎的同盟与孤寂的旅程", titleEn: "The Breaking of the Fellowship", content: "在大河阿蒙汉，波洛米尔在魔戒的诱惑下几乎迷失。为了救赎，他拼死保护梅里和皮平，最终身中数箭英勇就义. 弗罗多意识到自己的重担可能会毁掉同伴，决定独自跨越大河前往魔多. 山姆拒绝被抛下，两人的孤寂身影消失在群山之中。", contentEn: "At Amon Hen, Boromir falters under the Ring's influence but finds redemption protecting the Hobbits. Frodo realizes the burden may destroy his friends and decides to go to Mordor alone. Sam refuses to stay behind, and they vanish into the eastern hills.", imagePrompt: "An old stone statue by a great river, a small boat drifting into the mist" }
+  ],
+  part2: [
+    { id: 0, title: "第二部：双塔奇兵 - 梗概", titleEn: "Book II: The Two Towers - Summary", content: "同盟虽然破碎，但每一个成员都在自己的战场上奋战。阿拉贡、莱戈拉斯和金雳追踪被强弩兵掳走的霍比特人，最终在洛汗的草场上找到了重生的甘道夫. 在艾辛格与圣盔谷，自由民迎击萨鲁曼的背叛；而在魔多的边缘，弗罗多和山姆在咕噜的引导下，一步步迈入陷阱。", contentEn: "The Fellowship is splintered but fighting on multiple fronts. Aragorn, Legolas, and Gimli track the captured Hobbits across Rohan, reuniting with the resurrected Gandalf. While Rohan fights Saruman's betrayal, Frodo and Sam are led by Gollum toward a deadly trap near Mordor.", imagePrompt: "Two dark stone towers facing each other across a desolate landscape, storm clouds" },
+    { id: 1, title: "洛汗的骠骑与白色的光芒", titleEn: "The Riders of Rohan", content: "在广袤的平原上，阿拉贡一行人遇到了伊欧墨带领的骑兵. 正当寻找陷入绝望时，一个白色的身影在森林边缘显现——曾经的灰袍巫师已重生为更强大的白袍甘道夫. 他带来了希望，但也预告了即将到来的圣盔谷决战。", contentEn: "On the vast plains, Aragorn's trio meets Eomer's riders. Just as hope fades, a white figure appears—Gandalf has returned as the White Wizard. He brings hope but warns of the coming clash at Helm's Deep.", imagePrompt: "A host of cavalry on a grassy plain, sunlight reflecting on spears and helmets" },
+    { id: 2, title: "树人的进军与艾辛格的覆灭", titleEn: "The March of the Ents", content: "梅里和皮平在法贡森林遇到了古老的树胡. 在亲眼目睹萨鲁曼对森林的亵渎后，这些长期保持沉默的牧树人发出了愤怒的咆哮. 他们冲向了艾辛格的城墙，用洪水的力量洗刷了萨鲁曼苦心经营的黑暗兵工厂，这位堕落巫师被困在了自己的高塔之中。", contentEn: "Merry and Pippin meet Treebeard in Fangorn. Witnessing Saruman's desecration of the woods, the Ents release a roar of fury. They march on Isengard, using the power of the river to drown Saruman's dark industry, trapping him in his own tower.", imagePrompt: "Ancient walking trees with deep eyes, a small hobbit perched on a giant branch" },
+    { id: 3, title: "圣盔谷的绝地反击", titleEn: "The Battle of Helm's Deep", content: "上万名强弩兵疯狂围攻圣盔谷要塞. 在最黑暗的雨夜，人类守军几乎力竭. 当黎明的第一缕曙光划破云层时，甘道夫带着艾肯布兰德的援军从东方的山坡俯冲而下. 白色的光辉彻底击碎了黑暗，洛汗骑兵的号角声在山谷间久久回荡。", contentEn: "Ten thousand Uruk-hai lay siege to Helm's Deep. In the darkest rain-swept night, the defense wavers. As dawn breaks, Gandalf charges from the east with Erkenbrand's host. The white light shatters the dark army, and Rohan's horns echo through the valley.", imagePrompt: "A massive stone wall under siege at night, thousands of lights moving in the valley" },
+    { id: 4, title: "魔多黑门的绝望眺望", titleEn: "The Black Gate is Closed", content: "弗罗多和山姆终于抵达了魔多的入口，但那厚重的黑门后是密密麻麻的半兽人大军. 强行进入已成幻想，咕噜提议走一条隐秘的、能够绕过黑门的山道. 虽然弗罗多对咕噜仍存怜悯，但山姆敏锐地察觉到了这个生物灵魂深处不安分的贪欲。", contentEn: "Frodo and Sam reach the Black Gate of Mordor, only to find it heavily guarded. Entering is impossible. Gollum suggests a secret path over the mountains. Though Frodo pities him, Sam remains wary of the creature's lingering greed.", imagePrompt: "Colossal iron gates guarded by trolls, mountains of slag and ash" },
+    { id: 5, title: "尸罗巢穴中的光明", titleEn: "The Lair of Shelob", content: "咕噜将霍比特人引入了巨蛛尸罗的洞穴. 弗罗多在黑暗中被毒牙刺中，陷入了类似死亡的沉睡. 正当山姆以为一切都结束时，他捡起了魔戒和加拉德瑞尔的水晶瓶. 面对可怕的怪物，这位平凡的园丁展现了无畏的英雄气概，用精灵的光明刺穿了阴暗。", contentEn: "Gollum leads them into Shelob's web. Frodo is stung and falls into a death-like sleep. Sam, thinking his master lost, takes the ring and Galadriel's phial. The humble gardener shows heroic courage, using elven light to drive back the darkness.", imagePrompt: "A giant spider shadow on a cavern wall, a small blue light glowing in the darkness" }
+  ],
+  part3: [
+    { id: 0, title: "第三部：王者归来 - 梗概", titleEn: "Book III: Return of the King - Summary", content: "中土世界的第三纪元走向终局. 刚铎的王都米那斯提力斯面临着索伦最疯狂的进攻. 阿拉贡必须接受自己的血脉使命，重铸圣剑，并踏上亡灵之道寻找援军. 而在那令人窒息的末日火山之巅，魔戒的命运将决定这片土地的未来是重生还是永远的黑夜。", contentEn: "The Third Age ends. Minas Tirith faces Sauron's ultimate assault. Aragorn must accept his destiny, reforge the King's sword, and walk the Paths of the Dead for aid. At the peak of Mount Doom, the Ring's fate decides if Middle-earth will be reborn or lost to night.", imagePrompt: "A white city built on a mountain, glowing with the light of a new dawn" },
+    { id: 1, title: "亡灵之路的王者号令", titleEn: "The Paths of the Dead", content: "为了挽救处于包围中的刚铎，阿拉贡毅然走进了被诅咒的山中隧道. 作为埃西铎的嫡系后裔，他手持重铸的纳西尔圣剑，要求那些在远古背弃誓言的亡灵履行诺言. 这支由绿色阴影组成的幽灵大军，成为了扭转帕兰诺平原战局的关键力量。", contentEn: "To save the besieged Gondor, Aragorn walks the cursed mountain path. As Isildur's heir, he holds the reforged Narsil and demands the oath-breaking dead fulfill their promise. The green ghost army becomes the key to turning the tide at Pelennor.", imagePrompt: "A king holding a glowing sword in a dark cave filled with ghostly green mist" },
+    { id: 2, title: "帕兰诺平原的绝唱与救赎", titleEn: "Pelennor Fields", content: "索伦的半兽人大军与刚铎守军在米那斯提力斯城下展开血战. 洛汗骑兵发起了震撼大地的最后冲锋，伊欧玟巾帼不让须眉，在梅里和波洛米尔的影响下，亲手斩杀了戒灵之首. 鲜血染红了草场，但也为人类赢得了喘息的机会。", contentEn: "Sauron's orcs clash with Gondor's defenders. The Rohirrim launch an earth-shaking charge. Eowyn, with Merry's help, slays the Witch-king. Blood soaks the fields, but humanity wins a desperate chance at survival.", imagePrompt: "A battlefield of fire and blood, a golden lion banner flying amidst chaos" },
+    { id: 3, title: "黑门前的最后赌注", titleEn: "The Last Debate", content: "为了吸引索伦的注意力，阿拉贡率领残余的远征军进军魔多黑门. 这是一场注定失败的战斗，但也是唯一的战术：他们必须让那只巨大的眼睛看向北方的平原，从而让弗罗多和山姆有机会在毫无防备的魔多荒原上完成最后的使命。", contentEn: "To distract Sauron, Aragorn leads his remaining forces to the Black Gate. It's a suicide mission, but necessary: they must draw the Eye north so Frodo and Sam can reach Mount Doom through the undefended wastes of Mordor.", imagePrompt: "A small army standing before a sea of orcs, dark clouds swirling above" },
+    { id: 4, title: "末日火山的毁灭与灰烬", titleEn: "The Crack of Doom", content: "在火焰的源头，魔戒终于彻底控制了弗罗多的意志，他拒绝将戒指投入岩浆. 咕噜在疯狂的抢夺中咬断了弗罗多的手指，并随着他的“宝贝”一同坠入火海. 至尊魔戒被熔毁，索伦的塔楼崩塌，中土世界的阴霾随着火山的喷发而消散。", contentEn: "At the volcano, the ring masters Frodo's will; he refuses to destroy it. Gollum bites off Frodo's finger in a mad struggle and falls into the lava with his 'Precious.' The Ring is unmade, Sauron's tower crumbles, and the darkness lifts.", imagePrompt: "Molten lava flowing, a hand reaching for a falling golden ring, volcanic ash" },
+    { id: 5, title: "灰港岸的永恒离别", titleEn: "The Grey Havens", content: "和平重归中土，阿拉贡登基为王. 然而，弗罗多受到的心灵创伤已无法完全愈合. 在最后的一抹斜阳中，他随着甘道夫、比尔博以及精灵们登上了前往西方不死之地的船只. 山姆在岸边含泪送别，中土世界的第三纪元就此落下帷幕。", contentEn: "Peace returns and Aragorn is crowned. Yet Frodo's mental wounds remain. In the dying light of day, he boards a ship to the Undying Lands with Gandalf and Bilbo. Sam watches from the shore as the Third Age concludes.", imagePrompt: "A white ship leaving a silver harbor at twilight, starlight reflecting on water" }
+  ]
+};
+
+export const JULIEN_JOURNEY: JourneyNode[] = [
+  { id: 1, title: "THE SAWMILL", context: "Verrières. Julien is found reading instead of monitoring the saw.", redAspect: "The secret fire of military ambition and his internal worship of Napoleon's rise from obscurity.", blackAspect: "The realization that the sword is closed to him; the cassock is the only pragmatic route to power.", dominantColor: 'black', imagePrompt: "A young man with dark hair reading a book on top of a massive wooden beam in a rural sawmill, 19th century France" },
+  { id: 2, title: "THE HAND IN THE GARDEN", context: "Evening at the Rênal estate. He decides he must hold Mme de Rênal's hand as a duty.", redAspect: "A sudden explosion of defiant passion, turning a social duty into a daring emotional conquest.", blackAspect: "Calculating the risk of rejection against the potential power gained from seducing the Mayor's wife.", dominantColor: 'red', imagePrompt: "A secret meeting in a moonlit garden between a tutor and a noblewoman, silhouettes of hands touching" },
+  { id: 3, title: "THE SEMINARY", context: "Besançon. Surrounded by peasants who only care about bread and money.", redAspect: "Silent fury against the vulgarity and mediocrity of the common clergy.", blackAspect: "Mastery of feigned piety and the 'Black'—learning that success in the church requires total performance.", dominantColor: 'black', imagePrompt: "A dark cathedral interior, rows of priests in black robes, flickering candlelight, stone expressions" },
+  { id: 4, title: "THE BLUE SUIT", context: "Paris. Secretary to Marquis de la Mole. He sheds the cassock for a blue coat.", redAspect: "Entering the high circles of aristocracy and the reckless romance with Mathilde.", blackAspect: "Managing complex diplomatic duties and shedding his provincial skin to become a Parisian power player.", dominantColor: 'mixed', imagePrompt: "A young man looking at a magnificent blue velvet coat in a mirror, grand Parisian background" },
+  { id: 5, title: "MATHILDE'S HAIR", context: "The dramatic romance. She cuts her hair to show her devotion.", redAspect: "A peak of romantic madness and pride; Mathilde's sacrifice binds them in a tragic, heroic pact.", blackAspect: "Navigating the dangerous social fallout of a pregnancy in the House of de la Mole.", dominantColor: 'red', imagePrompt: "A noblewoman with a pair of shears cutting a lock of her own hair, high drama aesthetic" },
+  { id: 6, title: "THE CHURCH SHOOTING", context: "After the letter ruins everything, he returns to Verrières and shoots Mme de Rênal.", redAspect: "A volcanic eruption of wounded pride and desperate impulse that destroys his future.", blackAspect: "The final failure of all his meticulous calculations at the moment of peak ambition.", dominantColor: 'red', imagePrompt: "A man in a black cloak standing in a church with a pistol, smoke curling in the air, dramatic light" },
+  { id: 7, title: "THE GUILLOTINE", context: "The trial. He refuses to appeal. He finds his final, lonely truth.", redAspect: "The ultimate refusal to lie to a hypocritical jury, choosing death as his final act of pride.", blackAspect: "The calm analysis of his own end, finally free from the need to perform a social role.", dominantColor: 'black', imagePrompt: "A solitary figure in a dark stone cell, the shadow of a guillotine falling across the floor" }
+];
+
+export const JULIEN_NETWORK: NetworkNode[] = [
+  { id: 'julien', name: "JULIEN SOREL", role: "THE HERO", traits: "Intelligent, Proud, Hypocritical", description: "A carpenter's son who uses his intellect and the Church to climb the social ladder. He is torn between the 'Red' of Napoleonic glory and the 'Black' of ecclesiastical success.", alignment: 'mixed', imagePrompt: "Portrait of a young man with intense dark eyes and a pale face, intellectual look, red and black split background", x: 50, y: 60, socialX: 50, socialY: 82, size: 'lg' },
+  { id: 'abbe_pirard', name: "ABBÉ PIRARD", role: "THE MENTOR", traits: "Severe, Honest, Jansenist", description: "The director of the seminary who protects Julien and introduces him to Paris. A stern father figure representing the 'Black' path.", alignment: 'black', imagePrompt: "A stern priest with deep-set eyes, plain black cassock, high contrast red background", x: 50, y: 15, socialX: 20, socialY: 45, size: 'md' },
+  { id: 'marquis', name: "MARQUIS DE LA MOLE", role: "THE PATRON", traits: "Witty, Influential, Noble", description: "A grand lord who recognizes Julien's talent and treats him like a son. He represents the peak of aristocratic power.", alignment: 'black', imagePrompt: "Elderly gentleman with silver hair, noble posture, wearing a sash", x: 85, y: 30, socialX: 90, socialY: 15, size: 'md' },
+  { id: 'm_renal', name: "M. DE RÊNAL", role: "THE OBSTACLE", traits: "Petty, Wealthy, Materialistic", description: "The Mayor of Verrières, obsessed with status. He hires Julien to show off his wealth and control.", alignment: 'black', imagePrompt: "Pompous man in 19th century mayor sash, looking self-important", x: 15, y: 30, socialX: 20, socialY: 40, size: 'md' },
+  { id: 'mme_renal', name: "MME DE RÊNAL", role: "TRUE LOVE", traits: "Pious, Naive, Passionate", description: "Julien's first true love. Her pious nature conflicts with her adultery, leading to the 'Red' of passion.", alignment: 'red', imagePrompt: "Gentle woman in 19th century dress, sorrowful expression, surrounded by roses", x: 20, y: 55, socialX: 25, socialY: 45, size: 'md' },
+  { id: 'mathilde', name: "MATHILDE", role: "AMBITIOUS LOVE", traits: "Bored, Proud, Romantic", description: "Marquis' daughter. She loves Julien because he is dangerous and intellectual, representing 'Red' defiance.", alignment: 'red', imagePrompt: "Haughty young noblewoman, complex hair, intense gaze", x: 80, y: 55, socialX: 75, socialY: 15, size: 'md' },
+  { id: 'valenod', name: "M. VALENOD", role: "THE RIVAL", traits: "Greedy, Loud, Successful", description: "Julien's social rival in the provinces. His corruption represents the dark side of the 'Black' path.", alignment: 'black', imagePrompt: "Ostentatious man with jewelry, vulgar smile", x: 15, y: 75, socialX: 38, socialY: 42, size: 'sm' },
+  { id: 'elisa', name: "ELISA", role: "THE BETRAYER", traits: "Jealous, Scorned", description: "The maid who loved Julien and, out of jealousy, betrayed him to M. de Rênal, causing the first scandal.", alignment: 'white', imagePrompt: "Young maid in apron, looking with spite and longing", x: 30, y: 85, socialX: 35, socialY: 85, size: 'sm' },
+  { id: 'croisenois', name: "CROISENOIS", role: "THE SUITOR", traits: "Noble, Dull", description: "The perfect aristocratic match for Mathilde. He represents the hollow world of high society.", alignment: 'black', imagePrompt: "Dull, perfect young aristocrat in military uniform", x: 85, y: 75, socialX: 65, socialY: 15, size: 'sm' },
+  { id: 'old_sorel', name: "OLD SOREL", role: "THE FATHER", traits: "Brutal, Greedy", description: "Julien's illiterate father who represents the hard 'Black' world of provincial labor and resentment.", alignment: 'black', imagePrompt: "Grumpy old peasant with rough hands and a mean face", x: 50, y: 90, socialX: 50, socialY: 95, size: 'sm' }
+];
+
+export const JULIEN_LINKS: NetworkLink[] = [
+  { from: 'julien', to: 'mme_renal', label: 'True Love', type: 'solid', color: '#cf1313', viewMode: 'ALL' },
+  { from: 'julien', to: 'mathilde', label: 'Ambition', type: 'solid', color: '#d4af37', viewMode: 'ALL' },
+  { from: 'julien', to: 'marquis', label: 'Protege', type: 'dashed', color: 'gray', viewMode: 'ALL' },
+  { from: 'abbe_pirard', to: 'julien', label: 'Son', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'abbe_pirard', to: 'marquis', label: 'Allies', type: 'dashed', color: 'black', viewMode: 'ALL' },
+  { from: 'mme_renal', to: 'm_renal', label: 'Harassment', type: 'dotted', color: 'gray', viewMode: 'ALL' },
+  { from: 'julien', to: 'm_renal', label: 'Enemy', type: 'solid', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'valenod', label: 'Rival', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'elisa', label: 'Betrayal', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'old_sorel', label: 'Son', type: 'solid', color: 'gray', viewMode: 'ALL' },
+  { from: 'mathilde', to: 'croisenois', label: 'Bet', type: 'dotted', color: 'gray', viewMode: 'ALL' },
+  { from: 'marquis', to: 'mathilde', label: 'Love', type: 'solid', color: 'gray', viewMode: 'ALL' }
 ];
