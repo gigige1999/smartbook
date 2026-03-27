@@ -1,8 +1,15 @@
 
+export enum Language {
+  EN = 'en',
+  ZH = 'zh'
+}
+
 export interface StoryPhase {
   id: number;
   title: string;
+  titleEn?: string;
   description: string;
+  descriptionEn?: string;
   imagePrompt: string;
 }
 
@@ -34,8 +41,11 @@ export interface Character {
 export interface Book {
   id: string;
   title: string;
+  titleEn?: string;
   author: string;
+  authorEn?: string;
   description: string;
+  descriptionEn?: string;
   coverColor: string;
   accentColor: string;
   locked: boolean;
@@ -61,9 +71,13 @@ export enum ViewState {
 export interface JourneyNode {
   id: number;
   title: string;
+  titleEn?: string;
   context: string;
+  contextEn?: string;
   redAspect: string;
+  redAspectEn?: string;
   blackAspect: string;
+  blackAspectEn?: string;
   dominantColor: 'red' | 'black' | 'mixed';
   imagePrompt: string;
 }
@@ -71,9 +85,13 @@ export interface JourneyNode {
 export interface NetworkNode {
   id: string;
   name: string;
+  nameEn?: string;
   role: string;
+  roleEn?: string;
   traits: string;
+  traitsEn?: string;
   description: string;
+  descriptionEn?: string;
   alignment: 'red' | 'black' | 'white' | 'mixed';
   color?: string;
   imagePrompt: string;
@@ -89,6 +107,7 @@ export interface NetworkLink {
   from: string;
   to: string;
   label?: string;
+  labelEn?: string;
   type: 'solid' | 'dashed' | 'dotted';
   color?: string;
   viewMode?: 'ALL' | 'NETWORK_ONLY' | 'SOCIAL_ONLY';

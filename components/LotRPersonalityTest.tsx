@@ -5,6 +5,8 @@ import { LOTR_CHARACTERS } from '../constants';
 import { Character } from '../types';
 import { GenerativeImage } from './GenerativeImage';
 import { X, Sparkles, BookOpen, ChevronRight, RotateCcw, Languages, Compass, Award, Shield } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
+import { Language } from '../types';
 
 interface Question {
   id: number;
@@ -70,11 +72,11 @@ const QUESTIONS: Question[] = [
 ];
 
 export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  const { language, setLanguage, t } = useLanguage();
   const [currentStep, setCurrentStep] = useState<'START' | 'QUIZ' | 'RESULT'>('START');
   const [qIndex, setQIndex] = useState(0);
   const [scores, setScores] = useState<Record<string, number>>({});
   const [resultChar, setResultChar] = useState<Character | null>(null);
-  const [lang, setLang] = useState<'zh' | 'en'>('zh');
   const [shimmer, setShimmer] = useState(false);
 
   const triggerShimmer = () => {
@@ -158,11 +160,11 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
         </div>
 
         <button 
-          onClick={() => setLang(l => l === 'zh' ? 'en' : 'zh')}
+          onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
           className="absolute top-4 right-16 z-40 bg-[#1a120b] text-[#d4af37] px-3 py-1.5 rounded-sm flex items-center gap-2 hover:scale-105 transition-all font-mono text-[9px] shadow-2xl border border-[#d4af37]/30 font-bold uppercase tracking-widest"
         >
           <Languages size={12} />
-          {lang === 'zh' ? 'EN' : '中文'}
+          {language === Language.ZH ? 'EN' : '中文'}
         </button>
 
         <AnimatePresence mode="wait">
@@ -187,12 +189,10 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                     </div>
                     <div className="space-y-4 md:space-y-6">
                         <h1 className="text-3xl md:text-6xl font-black text-[#1a120b] uppercase font-uncial tracking-tighter">
-                            {lang === 'zh' ? '天命之试炼' : 'TRIAL OF DESTINY'}
+                            {t('天命之试炼', 'TRIAL OF DESTINY')}
                         </h1>
                         <p className="text-lg md:text-xl italic font-fantasy text-[#2c1a0a] leading-relaxed max-w-sm mx-auto">
-                            {lang === 'zh' 
-                                ? '"在迷雾笼罩的第三纪元，你的灵魂深处究竟映照着哪位传奇的身影？"' 
-                                : '"In the mist-shrouded Third Age, whose legendary soul is reflected in your own?"'}
+                            {t('"在迷雾笼罩的第三纪元，你的灵魂深处究竟映照着哪位传奇的身影？"', '"In the mist-shrouded Third Age, whose legendary soul is reflected in your own?"')}
                         </p>
                     </div>
                     <div className="flex flex-col items-center gap-4 md:gap-6">
@@ -202,10 +202,10 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                             onClick={handleStart}
                             className="bg-[#1a120b] text-[#d4af37] px-8 md:px-12 py-3 md:py-4 rounded-sm font-title font-bold uppercase tracking-[0.2em] shadow-xl border border-[#d4af37]/30"
                         >
-                            {lang === 'zh' ? '开启试炼' : 'BEGIN TRIAL'}
+                            {t('开启试炼', 'BEGIN TRIAL')}
                         </motion.button>
                         <button onClick={onBack} className="text-[#5c4d3c] font-mono text-[9px] md:text-[10px] uppercase tracking-widest hover:text-[#1a120b] transition-colors flex items-center gap-2">
-                           <Compass size={12} /> {lang === 'zh' ? '返回目录' : 'BACK'}
+                           <Compass size={12} /> {t('返回目录', 'BACK')}
                         </button>
                     </div>
                 </div>
@@ -241,11 +241,11 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                 <div className="w-full md:w-1/2 h-3/5 md:h-full p-6 md:p-12 flex flex-col justify-center space-y-8 md:space-y-12">
                     <header className="border-b border-black/10 pb-2 md:pb-4">
                         <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-black text-[#8a7a5f]">
-                            {lang === 'zh' ? '试炼题目' : 'QUESTION'} {qIndex + 1} / {QUESTIONS.length}
+                            {t('试炼题目', 'QUESTION')} {qIndex + 1} / {QUESTIONS.length}
                         </span>
                     </header>
                     <h2 className="text-2xl md:text-4xl font-black text-[#1a120b] leading-tight font-uncial uppercase tracking-tighter">
-                        {lang === 'zh' ? QUESTIONS[qIndex].text : QUESTIONS[qIndex].textEn}
+                        {t(QUESTIONS[qIndex].text, QUESTIONS[qIndex].textEn)}
                     </h2>
                     <div className="grid gap-3 md:gap-4">
                         {QUESTIONS[qIndex].options.map((opt, i) => (
@@ -257,7 +257,7 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                                 className="p-4 md:p-5 border-[1.5px] border-[#1a120b]/10 text-left rounded-sm group flex items-center justify-between transition-all bg-white/30 backdrop-blur-sm"
                             >
                                 <span className="text-base md:text-lg font-fantasy text-[#2c1a0a] group-hover:text-[#1a120b]">
-                                    {lang === 'zh' ? opt.text : opt.textEn}
+                                    {t(opt.text, opt.textEn)}
                                 </span>
                                 <ChevronRight size={18} md={22} className="opacity-0 group-hover:opacity-100 text-[#d4af37] transition-opacity" />
                             </motion.button>
@@ -290,10 +290,10 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none opacity-60"></div>
                             <div className="absolute bottom-4 left-4 text-white z-30">
                                 <p className="font-fantasy text-[9px] md:text-[14px] uppercase tracking-[0.3em] text-[#d4af37] mb-1 font-bold">
-                                    {lang === 'zh' ? resultChar.type : (resultChar.typeEn || resultChar.type)}
+                                    {t(resultChar.type, resultChar.typeEn)}
                                 </p>
                                 <h3 className="text-xl md:text-4xl font-black uppercase font-uncial leading-tight">
-                                    {lang === 'zh' ? resultChar.name.split(' (')[0] : (resultChar.nameEn || resultChar.name).split(' (')[0]}
+                                    {t(resultChar.name, resultChar.nameEn).split(' (')[0]}
                                 </h3>
                             </div>
                         </div>
@@ -304,50 +304,48 @@ export const LotRPersonalityTest: React.FC<{ onBack: () => void }> = ({ onBack }
                     <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="flex flex-col h-full">
                         <header className="mb-4 md:mb-8 border-b border-black/10 pb-2 md:pb-4">
                             <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#d4af37] font-black block mb-1">
-                                {lang === 'zh' ? '试炼结果揭示' : 'DESTINY REVEALED'}
+                                {t('试炼结果揭示', 'DESTINY REVEALED')}
                             </span>
                             <h2 className="text-2xl md:text-5xl font-black text-[#1a120b] uppercase font-uncial leading-none tracking-tighter">
-                                {lang === 'zh' ? resultChar.name : (resultChar.nameEn || resultChar.name)}
+                                {t(resultChar.name, resultChar.nameEn)}
                             </h2>
                         </header>
                         <div className="flex-1 space-y-4 md:space-y-8">
                             <div className="bg-black/5 p-4 md:p-6 border-l-4 md:border-l-8 border-[#d4af37] relative">
                                 <div className="absolute -top-3 -left-3 md:-top-5 md:-left-5 text-[#d4af37] opacity-20"><Award size={32} md={42} /></div>
                                 <p className="text-lg md:text-xl leading-relaxed text-[#2c1a0a] font-fantasy italic">
-                                    {lang === 'zh' 
-                                        ? `"你在抉择中展现了如 ${resultChar.type} 般的特质。这不是巧合，而是天命的共鸣。"` 
-                                        : `"Your choices echo the essence of a ${resultChar.typeEn || resultChar.type}. This is no coincidence; it is a resonance of destiny."`}
+                                    {t(`"你在抉择中展现了如 ${resultChar.type} 般的特质。这不是巧合，而是天命的共鸣。"`, `"Your choices echo the essence of a ${resultChar.typeEn || resultChar.type}. This is no coincidence; it is a resonance of destiny."`)}
                                 </p>
                             </div>
                             <div className="space-y-2 md:space-y-4">
                                 <h4 className="font-mono text-[10px] md:text-[11px] font-black opacity-30 uppercase tracking-[0.3em]">
-                                    {lang === 'zh' ? '传奇定位' : 'LEGENDARY RECORD'}
+                                    {t('传奇定位', 'LEGENDARY RECORD')}
                                 </h4>
                                 <p className="text-base md:text-lg text-[#5c4d3c] leading-relaxed">
-                                    {lang === 'zh' ? resultChar.description : (resultChar.descriptionEn || resultChar.description)}
+                                    {t(resultChar.description, resultChar.descriptionEn)}
                                 </p>
                             </div>
                             <div className="grid grid-cols-2 gap-4 md:gap-8 pt-4 md:pt-6 border-t border-black/10">
                                 <div className="space-y-1 md:space-y-2">
-                                    <span className="font-mono text-[9px] md:text-[10px] font-black opacity-40 uppercase tracking-widest flex items-center gap-2"><Shield size={12} className="text-[#d4af37]"/> {lang === 'zh' ? '阵营' : 'Faction'}</span>
+                                    <span className="font-mono text-[9px] md:text-[10px] font-black opacity-40 uppercase tracking-widest flex items-center gap-2"><Shield size={12} className="text-[#d4af37]"/> {t('阵营', 'Faction')}</span>
                                     <span className="text-lg md:text-xl font-fantasy font-bold text-[#1a120b]">
-                                        {lang === 'zh' ? resultChar.faction : (resultChar.factionEn || resultChar.faction)}
+                                        {t(resultChar.faction, resultChar.factionEn)}
                                     </span>
                                 </div>
                                 <div className="space-y-1 md:space-y-2">
-                                    <span className="font-mono text-[9px] md:text-[10px] font-black opacity-40 uppercase tracking-widest flex items-center gap-2"><BookOpen size={12} className="text-[#d4af37]"/> {lang === 'zh' ? '纪元' : 'Chronicle'}</span>
+                                    <span className="font-mono text-[9px] md:text-[10px] font-black opacity-40 uppercase tracking-widest flex items-center gap-2"><BookOpen size={12} className="text-[#d4af37]"/> {t('纪元', 'Chronicle')}</span>
                                     <span className="text-lg md:text-xl font-fantasy font-bold text-[#1a120b]">
-                                        {lang === 'zh' ? '第三纪元' : 'Third Age'}
+                                        {t('第三纪元', 'Third Age')}
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div className="mt-6 md:mt-10 pt-4 md:pt-6 border-t border-black/10 flex gap-3 md:gap-4">
                             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleStart} className="flex-1 flex items-center justify-center gap-2 md:gap-3 bg-[#1a120b] text-[#d4af37] p-3 md:p-4 rounded-sm font-title font-bold uppercase text-[10px] md:text-xs tracking-widest border border-[#d4af37]/30 shadow-xl">
-                                <RotateCcw size={14} md={18} /> {lang === 'zh' ? '重测' : 'RETRY'}
+                                <RotateCcw size={14} md={18} /> {t('重测', 'RETRY')}
                             </motion.button>
                             <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={onBack} className="flex-1 flex items-center justify-center gap-2 md:gap-3 border-[1.5px] border-[#1a120b] text-[#1a120b] p-3 md:p-4 rounded-sm font-title font-bold uppercase text-[10px] md:text-xs tracking-widest">
-                                <Compass size={14} md={18} /> {lang === 'zh' ? '返回目录' : 'BACK'}
+                                <Compass size={14} md={18} /> {t('返回目录', 'BACK')}
                             </motion.button>
                         </div>
                     </motion.div>

@@ -4,27 +4,36 @@ import { StoryPhase, Character, Book, JourneyNode, NetworkNode, NetworkLink, Lot
 export const BOOKS: Book[] = [
   {
     id: '100years',
-    title: 'One Hundred Years of Solitude',
-    author: 'Gabriel García Márquez',
-    description: 'A cycle of time, solitude, and magical realism in Macondo.',
+    title: '百年孤独',
+    titleEn: 'One Hundred Years of Solitude',
+    author: '加西亚·马尔克斯',
+    authorEn: 'Gabriel García Márquez',
+    description: '马孔多关于时间、孤独与魔幻现实主义的轮回。',
+    descriptionEn: 'A cycle of time, solitude, and magical realism in Macondo.',
     coverColor: '#2c241b',
     accentColor: '#8a7a5f',
     locked: false
   },
   {
     id: 'red_black',
-    title: 'The Red and the Black',
-    author: 'Stendhal',
-    description: 'Ambition, hypocrisy, and the psychology of Julien Sorel.',
+    title: '红与黑',
+    titleEn: 'The Red and the Black',
+    author: '司汤达',
+    authorEn: 'Stendhal',
+    description: '于连·索雷尔的野心、虚伪与心理博弈。',
+    descriptionEn: 'Ambition, hypocrisy, and the psychology of Julien Sorel.',
     coverColor: '#1a1a1a',
     accentColor: '#cf1313',
     locked: false
   },
   {
     id: 'lotr',
-    title: 'The Lord of the Rings',
-    author: 'J.R.R. Tolkien',
-    description: 'One Ring to rule them all, One Ring to find them.',
+    title: '魔戒',
+    titleEn: 'The Lord of the Rings',
+    author: 'J.R.R. 托尔金',
+    authorEn: 'J.R.R. Tolkien',
+    description: '至尊戒，驭众戒；至尊戒，寻众戒。',
+    descriptionEn: 'One Ring to rule them all, One Ring to find them.',
     coverColor: '#1a2a1a',
     accentColor: '#d4af37',
     locked: false
@@ -34,63 +43,75 @@ export const BOOKS: Book[] = [
 export const STORY_PHASES: StoryPhase[] = [
   {
     id: 1,
-    title: "The Genesis of Macondo",
-    description: "José Arcadio Buendía and Úrsula Iguarán cross the mountains to found a city of mirrors. Melquíades arrives with magnets and telescopes, sparking a fever of invention.",
+    title: "马孔多的诞生",
+    titleEn: "The Genesis of Macondo",
+    description: "何塞·阿尔卡蒂奥·布恩迪亚与乌尔苏拉越过大山，建立了一座镜子之城。梅尔基亚德斯带来了磁铁与望远镜，点燃了发明的狂热。",
+    descriptionEn: "José Arcadio Buendía and Úrsula Iguarán cross the mountains to found a city of mirrors. Melquíades arrives with magnets and telescopes, sparking a fever of invention.",
     imagePrompt: "A group of pioneers building a village of mud and cane by a clear river, surreal sepia sketch"
   },
   {
     id: 2,
-    title: "The Insomnia Plague",
-    description: "A silent plague strikes the town. People lose the ability to sleep and then their memories. They must label everything—'This is a cow, it must be milked'—to survive.",
+    title: "失眠症瘟疫",
+    titleEn: "The Insomnia Plague",
+    description: "一场无声的瘟疫袭击了小镇。人们失去了睡眠的能力，随后失去了记忆。他们必须给所有东西贴上标签——“这是牛，必须挤奶”——才能生存。",
+    descriptionEn: "A silent plague strikes the town. People lose the ability to sleep and then their memories. They must label everything—'This is a cow, it must be milked'—to survive.",
     imagePrompt: "Handwritten labels hanging from every object in a dusty house, shadows of people with wide eyes, surreal art"
   },
   {
     id: 3,
-    title: "The Endless Civil Wars",
-    description: "Colonel Aureliano Buendía instigates thirty-two armed uprisings and loses them all. He retreats into his workshop to craft little gold fishes, over and over.",
+    title: "无尽的内战",
+    titleEn: "The Endless Civil Wars",
+    description: "奥雷里亚诺·布恩迪亚上校发动了三十二次武装起义，且全部失败。他退回到工作室，一遍又一遍地制作小金鱼。",
+    descriptionEn: "Colonel Aureliano Buendía instigates thirty-two armed uprisings and loses them all. He retreats into his workshop to craft little gold fishes, over and over.",
     imagePrompt: "A tired soldier in a dusty uniform sitting at a workbench making tiny golden fish, thousands of fishes reflecting light"
   },
   {
     id: 4, 
-    title: "The Banana Massacre",
-    description: "The American Fruit Company arrives. A strike leads to a massacre at the station. Three thousand bodies are loaded onto a train and dumped into the sea, then the rain begins.",
+    title: "香蕉公司大屠杀",
+    titleEn: "The Banana Massacre",
+    description: "美国水果公司到来。一场罢工导致了车站的大屠杀。三千具尸体被装上火车丢进大海，随后大雨倾盆而下。",
+    descriptionEn: "The American Fruit Company arrives. A strike leads to a massacre at the station. Three thousand bodies are loaded onto a train and dumped into the sea, then the rain begins.",
     imagePrompt: "A ghostly train passing through heavy tropical rain, shadowed figures, dark surrealism"
   },
   {
     id: 5,
-    title: "The Five-Year Rain",
-    description: "It rains for four years, eleven months, and two days. Macondo dissolves into the mud. The spirit of the town breaks as the Buendía family retreats further into solitude.",
+    title: "五年的大雨",
+    titleEn: "The Five-Year Rain",
+    description: "大雨持续了四年十一个月零两天。马孔多在泥泞中消融。布恩迪亚家族进一步退缩到孤独中，小镇的灵魂也随之破碎。",
+    descriptionEn: "It rains for four years, eleven months, and two days. Macondo dissolves into the mud. The spirit of the town breaks as the Buendía family retreats further into solitude.",
     imagePrompt: "An old mansion slowly being reclaimed by vines and water, a lonely figure at a window, ink sketch"
   },
   {
     id: 6,
-    title: "The Final Parchment",
-    description: "Aureliano Babilonia finally deciphers Melquíades' manuscripts at the moment the last of the line is carried away by ants. A wind wipes Macondo from the face of the earth.",
+    title: "最后的羊皮卷",
+    titleEn: "The Final Parchment",
+    description: "奥雷里亚诺·巴比伦在家族最后的血脉被蚂蚁搬走的那一刻，终于破译了梅尔基亚德斯的遗稿。一阵狂风将马孔多从地球表面抹去。",
+    descriptionEn: "Aureliano Babilonia finally deciphers Melquíades' manuscripts at the moment the last of the line is carried away by ants. A wind wipes Macondo from the face of the earth.",
     imagePrompt: "An ancient manuscript being blown away by a hurricane, a ruined city in the background, catastrophic beauty"
   }
 ];
 
 export const BUENDIA_FAMILY: Character[] = [
-  { id: 'jab', name: "José Arcadio Buendía", relation: "Patriarch", description: "Founder of Macondo, dreamer of the infinite, driven to madness by knowledge and the ghosts of his past.", imagePrompt: "Old man with wild hair tied to a chestnut tree, talking to ghosts, sepia sketch", generation: 1, type: 'FAMILY', symbol: 'FlaskConical', partner: 'ursula' },
-  { id: 'ursula', name: "Úrsula Iguarán", relation: "Matriarch", description: "The backbone of the family who lives to be over 100 years old, witnessing the entire cycle of pride and ruin.", imagePrompt: "Ancient woman with a shawl, blind but seeing everything, holding a bunch of keys", generation: 1, type: 'FAMILY', symbol: 'Home', partner: 'jab' },
-  { id: 'melquiades', name: "Melquíades", relation: "Gypsy / Prophet", description: "The scribe of the manuscripts that contain the entire history of the family, written in Sanskrit.", imagePrompt: "Gypsy with a large hat and dark eyes, surrounded by parchment and alchemy tools", generation: 0, type: 'EXTERNAL', symbol: 'Scroll' },
-  { id: 'pilar', name: "Pilar Ternera", relation: "Oracle", description: "A woman of earth and cards who knows the Buendía men better than they know themselves.", imagePrompt: "A woman in a colorful dress reading tarot cards by candlelight, earthy and powerful", generation: 0, type: 'EXTERNAL', symbol: 'Sparkles' },
-  { id: 'ja_hijo', name: "José Arcadio", relation: "Son (2nd Gen)", description: "A man of massive strength and primitive instincts who returns from sea covered in tattoos.", imagePrompt: "A giant of a man covered in primitive tattoos, wearing sailor clothes, fierce expression", generation: 2, type: 'FAMILY', symbol: 'Anchor', parents: ['jab', 'ursula'], partner: 'rebeca' },
-  { id: 'aureliano', name: "Colonel Aureliano Buendía", relation: "Son (2nd Gen)", description: "The legendary warrior who loses 32 wars and finds peace only in crafting gold fishes.", imagePrompt: "Soldier with intense eyes, sitting alone in a room full of golden fish", generation: 2, type: 'FAMILY', symbol: 'Fish', parents: ['jab', 'ursula'] },
-  { id: 'rebeca', name: "Rebeca", relation: "Adopted Daughter", description: "The girl who eats earth and whitewash, bringing the insomnia plague to Macondo.", imagePrompt: "Girl in a Victorian dress eating soil from a flowerpot, haunting atmosphere", generation: 2, type: 'FAMILY', symbol: 'Droplets', parents: ['jab', 'ursula'], partner: 'ja_hijo' },
-  { id: 'amaranta', name: "Amaranta", relation: "Daughter (2nd Gen)", description: "A woman who sews her own funeral shroud and dies in virginal solitude.", imagePrompt: "Woman weaving a black shroud by candlelight, sorrowful expression", generation: 2, type: 'FAMILY', symbol: 'Scissors', parents: ['jab', 'ursula'] },
-  { id: 'arcadio', name: "Arcadio", relation: "Grandson (3rd Gen)", description: "The cruelest ruler of Macondo, executed by firing squad.", imagePrompt: "Stern man in military uniform standing before a firing squad", generation: 3, type: 'FAMILY', symbol: 'Sword', parents: ['ja_hijo', 'pilar'], partner: 'santa_sofia' },
-  { id: 'aureliano_jose', name: "Aureliano José", relation: "Grandson (3rd Gen)", description: "He sought his aunt Amaranta's love and died in the wars.", imagePrompt: "Young soldier looking longingly at a woman's portrait, shadows of battle", generation: 3, type: 'FAMILY', symbol: 'Cross', parents: ['aureliano', 'pilar'] },
-  { id: 'santa_sofia', name: "Santa Sofía", relation: "Daughter-in-law", description: "The invisible woman who served the family for generations with silent devotion.", imagePrompt: "A pale, quiet woman sweeping the floor of a large dusty mansion", generation: 0, type: 'EXTERNAL', symbol: 'Footprints' },
-  { id: 'remedios_bella', name: "Remedios the Beauty", relation: "Great-granddaughter (4th Gen)", description: "The most beautiful woman who ascended to heaven while folding sheets.", imagePrompt: "Woman floating into the sky wrapped in white linen sheets, glowing light", generation: 4, type: 'FAMILY', symbol: 'Sparkles', parents: ['arcadio', 'santa_sofia'] },
-  { id: 'ja_segundo', name: "José Arcadio Segundo", relation: "Great-grandson (4th Gen)", description: "The only witness to the banana massacre.", imagePrompt: "Man with a tired face looking at ancient scrolls, train tracks in the background", generation: 4, type: 'FAMILY', symbol: 'Scroll', parents: ['arcadio', 'santa_sofia'] },
-  { id: 'a_segundo', name: "Aureliano Segundo", relation: "Great-grandson (4th Gen)", description: "A man of excessive banquets and boundless wealth.", imagePrompt: "A man at a table full of exotic food and wine, laughing with a woman", generation: 4, type: 'FAMILY', symbol: 'Music', parents: ['arcadio', 'santa_sofia'], partner: 'fernanda' },
-  { id: 'fernanda', name: "Fernanda del Carpio", relation: "Wife (4th Gen)", description: "A rigid aristocrat who brought gold chamber pots to Macondo.", imagePrompt: "A woman in a high-collared dress looking sternly at a messy room", generation: 0, type: 'EXTERNAL', symbol: 'Crown' },
-  { id: 'meme', name: "Meme", relation: "5th Generation", description: "Her love for a mechanic led to her silence and yellow butterflies.", imagePrompt: "A girl playing the clavichord, surrounded by dozens of yellow butterflies", generation: 5, type: 'FAMILY', symbol: 'Bug', parents: ['a_segundo', 'fernanda'] },
-  { id: 'ja_v', name: "José Arcadio (V)", relation: "5th Generation", description: "Sent to Rome to become a Pope, he returned to find only ruins.", imagePrompt: "A man in semi-religious clothing sitting in a courtyard", generation: 5, type: 'FAMILY', symbol: 'BookOpen', parents: ['a_segundo', 'fernanda'] },
-  { id: 'amaranta_ursula', name: "Amaranta Úrsula", relation: "6th Generation", description: "She tried to restore Macondo with joy, unknowingly loving her own nephew.", imagePrompt: "A modern woman in a vintage house, painting and singing", generation: 6, type: 'FAMILY', symbol: 'Wind', parents: ['a_segundo', 'fernanda'], partner: 'aureliano_babilonia' },
-  { id: 'aureliano_babilonia', name: "Aureliano Babilonia", relation: "The Decoder (6th Gen)", description: "The illegitimate son who finally deciphers the manuscripts.", imagePrompt: "Young man reading ancient scrolls in a room covered in dust", generation: 6, type: 'FAMILY', symbol: 'FileText', parents: ['meme'] },
-  { id: 'last_child', name: "Aureliano (The Last)", relation: "7th Generation", description: "The child born with a pig's tail, marking the end.", imagePrompt: "A tiny infant carried away by a swarm of ants", generation: 7, type: 'FAMILY', symbol: 'Bug', parents: ['amaranta_ursula', 'aureliano_babilonia'] }
+  { id: 'jab', name: "何塞·阿尔卡蒂奥·布恩迪亚", nameEn: "José Arcadio Buendía", relation: "族长", relationEn: "Patriarch", description: "马孔多的建立者，对无限的梦想者，因对知识的渴望和过去的幽灵而陷入疯狂。", descriptionEn: "Founder of Macondo, dreamer of the infinite, driven to madness by knowledge and the ghosts of his past.", imagePrompt: "Old man with wild hair tied to a chestnut tree, talking to ghosts, sepia sketch", generation: 1, type: 'FAMILY', symbol: 'FlaskConical', partner: 'ursula' },
+  { id: 'ursula', name: "乌尔苏拉·伊瓜兰", nameEn: "Úrsula Iguarán", relation: "主母", relationEn: "Matriarch", description: "家族的脊梁，活了一百多岁，见证了整个傲慢与毁灭的轮回。", descriptionEn: "The backbone of the family who lives to be over 100 years old, witnessing the entire cycle of pride and ruin.", imagePrompt: "Ancient woman with a shawl, blind but seeing everything, holding a bunch of keys", generation: 1, type: 'FAMILY', symbol: 'Home', partner: 'jab' },
+  { id: 'melquiades', name: "梅尔基亚德斯", nameEn: "Melquíades", relation: "吉普赛人 / 先知", relationEn: "Gypsy / Prophet", description: "手稿的记录者，手稿中包含着用梵文书写的整个家族历史。", descriptionEn: "The scribe of the manuscripts that contain the entire history of the family, written in Sanskrit.", imagePrompt: "Gypsy with a large hat and dark eyes, surrounded by parchment and alchemy tools", generation: 0, type: 'EXTERNAL', symbol: 'Scroll' },
+  { id: 'pilar', name: "皮拉尔·特内拉", nameEn: "Pilar Ternera", relation: "神谕者", relationEn: "Oracle", description: "一个属于大地和纸牌的女人，她比布恩迪亚家族的男人更了解他们自己。", descriptionEn: "A woman of earth and cards who knows the Buendía men better than they know themselves.", imagePrompt: "A woman in a colorful dress reading tarot cards by candlelight, earthy and powerful", generation: 0, type: 'EXTERNAL', symbol: 'Sparkles' },
+  { id: 'ja_hijo', name: "何塞·阿尔卡蒂奥", nameEn: "José Arcadio", relation: "长子 (第二代)", relationEn: "Son (2nd Gen)", description: "一个拥有巨大力量和原始本能的人，从海上归来时全身布满纹身。", descriptionEn: "A man of massive strength and primitive instincts who returns from sea covered in tattoos.", imagePrompt: "A giant of a man covered in primitive tattoos, wearing sailor clothes, fierce expression", generation: 2, type: 'FAMILY', symbol: 'Anchor', parents: ['jab', 'ursula'], partner: 'rebeca' },
+  { id: 'aureliano', name: "奥雷里亚诺·布恩迪亚上校", nameEn: "Colonel Aureliano Buendía", relation: "次子 (第二代)", relationEn: "Son (2nd Gen)", description: "传奇战士，输掉了32场战争，最终只在制作金鱼中找到了平静。", descriptionEn: "The legendary warrior who loses 32 wars and finds peace only in crafting gold fishes.", imagePrompt: "Soldier with intense eyes, sitting alone in a room full of golden fish", generation: 2, type: 'FAMILY', symbol: 'Fish', parents: ['jab', 'ursula'] },
+  { id: 'rebeca', name: "丽贝卡", nameEn: "Rebeca", relation: "养女", relationEn: "Adopted Daughter", description: "吃土和石灰的女孩，给马孔多带来了失眠症瘟疫。", descriptionEn: "The girl who eats earth and whitewash, bringing the insomnia plague to Macondo.", imagePrompt: "Girl in a Victorian dress eating soil from a flowerpot, haunting atmosphere", generation: 2, type: 'FAMILY', symbol: 'Droplets', parents: ['jab', 'ursula'], partner: 'ja_hijo' },
+  { id: 'amaranta', name: "阿玛兰妲", nameEn: "Amaranta", relation: "女儿 (第二代)", relationEn: "Daughter (2nd Gen)", description: "一个缝制自己寿衣并在处女般的孤独中死去的女人。", descriptionEn: "A woman who sews her own funeral shroud and dies in virginal solitude.", imagePrompt: "Woman weaving a black shroud by candlelight, sorrowful expression", generation: 2, type: 'FAMILY', symbol: 'Scissors', parents: ['jab', 'ursula'] },
+  { id: 'arcadio', name: "阿尔卡蒂奥", nameEn: "Arcadio", relation: "孙子 (第三代)", relationEn: "Grandson (3rd Gen)", description: "马孔多最残酷的统治者，被行刑队处决。", descriptionEn: "The cruelest ruler of Macondo, executed by firing squad.", imagePrompt: "Stern man in military uniform standing before a firing squad", generation: 3, type: 'FAMILY', symbol: 'Sword', parents: ['ja_hijo', 'pilar'], partner: 'santa_sofia' },
+  { id: 'aureliano_jose', name: "奥雷里亚诺·何塞", nameEn: "Aureliano José", relation: "孙子 (第三代)", relationEn: "Grandson (3rd Gen)", description: "他寻求姑妈阿玛兰妲的爱，并在战争中死去。", descriptionEn: "He sought his aunt Amaranta's love and died in the wars.", imagePrompt: "Young soldier looking longingly at a woman's portrait, shadows of battle", generation: 3, type: 'FAMILY', symbol: 'Cross', parents: ['aureliano', 'pilar'] },
+  { id: 'santa_sofia', name: "圣索菲亚·德拉·彼达", nameEn: "Santa Sofía", relation: "儿媳", relationEn: "Daughter-in-law", description: "隐形的女人，以无声的奉献为家族服务了几代人。", descriptionEn: "The invisible woman who served the family for generations with silent devotion.", imagePrompt: "A pale, quiet woman sweeping the floor of a large dusty mansion", generation: 0, type: 'EXTERNAL', symbol: 'Footprints' },
+  { id: 'remedios_bella', name: "美人儿蕾梅黛丝", nameEn: "Remedios the Beauty", relation: "曾孙女 (第四代)", relationEn: "Great-granddaughter (4th Gen)", description: "最美丽的女人，在折叠床单时升入天堂。", descriptionEn: "The most beautiful woman who ascended to heaven while folding sheets.", imagePrompt: "Woman floating into the sky wrapped in white linen sheets, glowing light", generation: 4, type: 'FAMILY', symbol: 'Sparkles', parents: ['arcadio', 'santa_sofia'] },
+  { id: 'ja_segundo', name: "何塞·阿尔卡蒂奥·第二", nameEn: "José Arcadio Segundo", relation: "曾孙 (第四代)", relationEn: "Great-grandson (4th Gen)", description: "香蕉大屠杀的唯一证人。", descriptionEn: "The only witness to the banana massacre.", imagePrompt: "Man with a tired face looking at ancient scrolls, train tracks in the background", generation: 4, type: 'FAMILY', symbol: 'Scroll', parents: ['arcadio', 'santa_sofia'] },
+  { id: 'a_segundo', name: "奥雷里亚诺·第二", nameEn: "Aureliano Segundo", relation: "曾孙 (第四代)", relationEn: "Great-grandson (4th Gen)", description: "一个沉溺于过度宴会和无尽财富的人。", descriptionEn: "A man of excessive banquets and boundless wealth.", imagePrompt: "A man at a table full of exotic food and wine, laughing with a woman", generation: 4, type: 'FAMILY', symbol: 'Music', parents: ['arcadio', 'santa_sofia'], partner: 'fernanda' },
+  { id: 'fernanda', name: "费尔南达·德尔·卡皮奥", nameEn: "Fernanda del Carpio", relation: "妻子 (第四代)", relationEn: "Wife (4th Gen)", description: "一个刻板的贵族，把金便盆带到了马孔多。", descriptionEn: "A rigid aristocrat who brought gold chamber pots to Macondo.", imagePrompt: "A woman in a high-collared dress looking sternly at a messy room", generation: 0, type: 'EXTERNAL', symbol: 'Crown' },
+  { id: 'meme', name: "梅梅", nameEn: "Meme", relation: "第五代", relationEn: "5th Generation", description: "她对机械师的爱导致了她的沉默和黄蝴蝶。", descriptionEn: "Her love for a mechanic led to her silence and yellow butterflies.", imagePrompt: "A girl playing the clavichord, surrounded by dozens of yellow butterflies", generation: 5, type: 'FAMILY', symbol: 'Bug', parents: ['a_segundo', 'fernanda'] },
+  { id: 'ja_v', name: "何塞·阿尔卡蒂奥 (V)", nameEn: "José Arcadio (V)", relation: "第五代", relationEn: "5th Generation", description: "被送往罗马成为教皇，回来后却只发现一片废墟。", descriptionEn: "Sent to Rome to become a Pope, he returned to find only ruins.", imagePrompt: "A man in semi-religious clothing sitting in a courtyard", generation: 5, type: 'FAMILY', symbol: 'BookOpen', parents: ['a_segundo', 'fernanda'] },
+  { id: 'amaranta_ursula', name: "阿玛兰妲·乌尔苏拉", nameEn: "Amaranta Úrsula", relation: "第六代", relationEn: "6th Generation", description: "她试图用快乐恢复马孔多，却在不知情中爱上了自己的侄子。", descriptionEn: "She tried to restore Macondo with joy, unknowingly loving her own nephew.", imagePrompt: "A modern woman in a vintage house, painting and singing", generation: 6, type: 'FAMILY', symbol: 'Wind', parents: ['a_segundo', 'fernanda'], partner: 'aureliano_babilonia' },
+  { id: 'aureliano_babilonia', name: "奥雷里亚诺·巴比伦", nameEn: "Aureliano Babilonia", relation: "破译者 (第六代)", relationEn: "The Decoder (6th Gen)", description: "私生子，最终破译了手稿。", descriptionEn: "The illegitimate son who finally deciphers the manuscripts.", imagePrompt: "Young man reading ancient scrolls in a room covered in dust", generation: 6, type: 'FAMILY', symbol: 'FileText', parents: ['meme'] },
+  { id: 'last_child', name: "奥雷里亚诺 (最后一位)", nameEn: "Aureliano (The Last)", relation: "第七代", relationEn: "7th Generation", description: "出生时带着猪尾巴的孩子，标志着终结。", descriptionEn: "The child born with a pig's tail, marking the end.", imagePrompt: "A tiny infant carried away by a swarm of ants", generation: 7, type: 'FAMILY', symbol: 'Bug', parents: ['amaranta_ursula', 'aureliano_babilonia'] }
 ];
 
 export const LOTR_CHARACTERS: Character[] = [
@@ -488,39 +509,39 @@ export const LOTR_STORY: Record<string, LotRStoryPage[]> = {
 };
 
 export const JULIEN_JOURNEY: JourneyNode[] = [
-  { id: 1, title: "THE SAWMILL", context: "Verrières. Julien is found reading instead of monitoring the saw.", redAspect: "The secret fire of military ambition and his internal worship of Napoleon's rise from obscurity.", blackAspect: "The realization that the sword is closed to him; the cassock is the only pragmatic route to power.", dominantColor: 'black', imagePrompt: "A young man with dark hair reading a book on top of a massive wooden beam in a rural sawmill, 19th century France" },
-  { id: 2, title: "THE HAND IN THE GARDEN", context: "Evening at the Rênal estate. He decides he must hold Mme de Rênal's hand as a duty.", redAspect: "A sudden explosion of defiant passion, turning a social duty into a daring emotional conquest.", blackAspect: "Calculating the risk of rejection against the potential power gained from seducing the Mayor's wife.", dominantColor: 'red', imagePrompt: "A secret meeting in a moonlit garden between a tutor and a noblewoman, silhouettes of hands touching" },
-  { id: 3, title: "THE SEMINARY", context: "Besançon. Surrounded by peasants who only care about bread and money.", redAspect: "Silent fury against the vulgarity and mediocrity of the common clergy.", blackAspect: "Mastery of feigned piety and the 'Black'—learning that success in the church requires total performance.", dominantColor: 'black', imagePrompt: "A dark cathedral interior, rows of priests in black robes, flickering candlelight, stone expressions" },
-  { id: 4, title: "THE BLUE SUIT", context: "Paris. Secretary to Marquis de la Mole. He sheds the cassock for a blue coat.", redAspect: "Entering the high circles of aristocracy and the reckless romance with Mathilde.", blackAspect: "Managing complex diplomatic duties and shedding his provincial skin to become a Parisian power player.", dominantColor: 'mixed', imagePrompt: "A young man looking at a magnificent blue velvet coat in a mirror, grand Parisian background" },
-  { id: 5, title: "MATHILDE'S HAIR", context: "The dramatic romance. She cuts her hair to show her devotion.", redAspect: "A peak of romantic madness and pride; Mathilde's sacrifice binds them in a tragic, heroic pact.", blackAspect: "Navigating the dangerous social fallout of a pregnancy in the House of de la Mole.", dominantColor: 'red', imagePrompt: "A noblewoman with a pair of shears cutting a lock of her own hair, high drama aesthetic" },
-  { id: 6, title: "THE CHURCH SHOOTING", context: "After the letter ruins everything, he returns to Verrières and shoots Mme de Rênal.", redAspect: "A volcanic eruption of wounded pride and desperate impulse that destroys his future.", blackAspect: "The final failure of all his meticulous calculations at the moment of peak ambition.", dominantColor: 'red', imagePrompt: "A man in a black cloak standing in a church with a pistol, smoke curling in the air, dramatic light" },
-  { id: 7, title: "THE GUILLOTINE", context: "The trial. He refuses to appeal. He finds his final, lonely truth.", redAspect: "The ultimate refusal to lie to a hypocritical jury, choosing death as his final act of pride.", blackAspect: "The calm analysis of his own end, finally free from the need to perform a social role.", dominantColor: 'black', imagePrompt: "A solitary figure in a dark stone cell, the shadow of a guillotine falling across the floor" }
+  { id: 1, title: "锯木厂", titleEn: "THE SAWMILL", context: "维里耶尔。于连被发现正在读书，而不是在监控锯木机。", contextEn: "Verrières. Julien is found reading instead of monitoring the saw.", redAspect: "军事野心的秘密之火，以及他对拿破仑从无名小卒崛起的内心崇拜。", redAspectEn: "The secret fire of military ambition and his internal worship of Napoleon's rise from obscurity.", blackAspect: "意识到剑的道路对他已经关闭；教袍是通往权力的唯一务实途径。", blackAspectEn: "The realization that the sword is closed to him; the cassock is the only pragmatic route to power.", dominantColor: 'black', imagePrompt: "A young man with dark hair reading a book on top of a massive wooden beam in a rural sawmill, 19th century France" },
+  { id: 2, title: "花园里的手", titleEn: "THE HAND IN THE GARDEN", context: "雷纳尔庄园的夜晚。他决定必须握住雷纳尔夫人的手，作为一种职责。", contextEn: "Evening at the Rênal estate. He decides he must hold Mme de Rênal's hand as a duty.", redAspect: "挑衅性激情的突然爆发，将社交职责转化为大胆的情感征服。", redAspectEn: "A sudden explosion of defiant passion, turning a social duty into a daring emotional conquest.", blackAspect: "权衡被拒绝的风险与诱惑市长夫人的潜在权力收益。", blackAspectEn: "Calculating the risk of rejection against the potential power gained from seducing the Mayor's wife.", dominantColor: 'red', imagePrompt: "A secret meeting in a moonlit garden between a tutor and a noblewoman, silhouettes of hands touching" },
+  { id: 3, title: "神学院", titleEn: "THE SEMINARY", context: "贝桑松。周围是只关心面包和金钱的农民。", contextEn: "Besançon. Surrounded by peasants who only care about bread and money.", redAspect: "对普通神职人员的庸俗和平庸感到无声的愤怒。", redAspectEn: "Silent fury against the vulgarity and mediocrity of the common clergy.", blackAspect: "精通虚假的虔诚和“黑”——了解到在教会取得成功需要完全的表演。", blackAspectEn: "Mastery of feigned piety and the 'Black'—learning that success in the church requires total performance.", dominantColor: 'black', imagePrompt: "A dark cathedral interior, rows of priests in black robes, flickering candlelight, stone expressions" },
+  { id: 4, title: "蓝色礼服", titleEn: "THE BLUE SUIT", context: "巴黎。德·拉莫尔侯爵的秘书。他脱下教袍，换上蓝色外套。", contextEn: "Paris. Secretary to Marquis de la Mole. He sheds the cassock for a blue coat.", redAspect: "进入贵族的高层圈子，以及与玛蒂尔德不计后果的浪漫。", redAspectEn: "Entering the high circles of aristocracy and the reckless romance with Mathilde.", blackAspect: "处理复杂的外交职责，脱掉省籍的外壳，成为巴黎的权力参与者。", blackAspectEn: "Managing complex diplomatic duties and shedding his provincial skin to become a Parisian power player.", dominantColor: 'mixed', imagePrompt: "A young man looking at a magnificent blue velvet coat in a mirror, grand Parisian background" },
+  { id: 5, title: "玛蒂尔德的头发", titleEn: "MATHILDE'S HAIR", context: "戏剧性的浪漫。她剪掉头发以示忠诚。", contextEn: "The dramatic romance. She cuts her hair to show her devotion.", redAspect: "浪漫疯狂和骄傲的高峰；玛蒂尔德的牺牲将他们束缚在一段悲剧性的、英雄般的盟约中。", redAspectEn: "A peak of romantic madness and pride; Mathilde's sacrifice binds them in a tragic, heroic pact.", blackAspect: "在德·拉莫尔家族中应对怀孕带来的危险社交后果。", blackAspectEn: "Navigating the dangerous social fallout of a pregnancy in the House of de la Mole.", dominantColor: 'red', imagePrompt: "A noblewoman with a pair of shears cutting a lock of her own hair, high drama aesthetic" },
+  { id: 6, title: "教堂枪击案", titleEn: "THE CHURCH SHOOTING", context: "在信件毁掉一切后，他回到维里耶尔并枪击了雷纳尔夫人。", contextEn: "After the letter ruins everything, he returns to Verrières and shoots Mme de Rênal.", redAspect: "受伤的自尊和绝望的冲动像火山一样爆发，摧毁了他的未来。", redAspectEn: "A volcanic eruption of wounded pride and desperate impulse that destroys his future.", blackAspect: "在他野心达到顶峰的时刻，他所有细致计算的最终失败。", blackAspectEn: "The final failure of all his meticulous calculations at the moment of peak ambition.", dominantColor: 'red', imagePrompt: "A man in a black cloak standing in a church with a pistol, smoke curling in the air, dramatic light" },
+  { id: 7, title: "断头台", titleEn: "THE GUILLOTINE", context: "审判。他拒绝上诉。他找到了他最后的、孤独的真理。", contextEn: "The trial. He refuses to appeal. He finds his final, lonely truth.", redAspect: "最终拒绝向虚伪的陪审团撒谎，选择死亡作为他最后的骄傲之举。", redAspectEn: "The ultimate refusal to lie to a hypocritical jury, choosing death as his final act of pride.", blackAspect: "对自己终结的冷静分析，终于从表演社交角色的需要中解脱出来。", blackAspectEn: "The calm analysis of his own end, finally free from the need to perform a social role.", dominantColor: 'black', imagePrompt: "A solitary figure in a dark stone cell, the shadow of a guillotine falling across the floor" }
 ];
 
 export const JULIEN_NETWORK: NetworkNode[] = [
-  { id: 'julien', name: "JULIEN SOREL", role: "THE HERO", traits: "Intelligent, Proud, Hypocritical", description: "A carpenter's son who uses his intellect and the Church to climb the social ladder. He is torn between the 'Red' of Napoleonic glory and the 'Black' of ecclesiastical success.", alignment: 'mixed', imagePrompt: "Portrait of a young man with intense dark eyes and a pale face, intellectual look, red and black split background", x: 50, y: 60, socialX: 50, socialY: 82, size: 'lg' },
-  { id: 'abbe_pirard', name: "ABBÉ PIRARD", role: "THE MENTOR", traits: "Severe, Honest, Jansenist", description: "The director of the seminary who protects Julien and introduces him to Paris. A stern father figure representing the 'Black' path.", alignment: 'black', imagePrompt: "A stern priest with deep-set eyes, plain black cassock, high contrast red background", x: 50, y: 15, socialX: 20, socialY: 45, size: 'md' },
-  { id: 'marquis', name: "MARQUIS DE LA MOLE", role: "THE PATRON", traits: "Witty, Influential, Noble", description: "A grand lord who recognizes Julien's talent and treats him like a son. He represents the peak of aristocratic power.", alignment: 'black', imagePrompt: "Elderly gentleman with silver hair, noble posture, wearing a sash", x: 85, y: 30, socialX: 90, socialY: 15, size: 'md' },
-  { id: 'm_renal', name: "M. DE RÊNAL", role: "THE OBSTACLE", traits: "Petty, Wealthy, Materialistic", description: "The Mayor of Verrières, obsessed with status. He hires Julien to show off his wealth and control.", alignment: 'black', imagePrompt: "Pompous man in 19th century mayor sash, looking self-important", x: 15, y: 30, socialX: 20, socialY: 40, size: 'md' },
-  { id: 'mme_renal', name: "MME DE RÊNAL", role: "TRUE LOVE", traits: "Pious, Naive, Passionate", description: "Julien's first true love. Her pious nature conflicts with her adultery, leading to the 'Red' of passion.", alignment: 'red', imagePrompt: "Gentle woman in 19th century dress, sorrowful expression, surrounded by roses", x: 20, y: 55, socialX: 25, socialY: 45, size: 'md' },
-  { id: 'mathilde', name: "MATHILDE", role: "AMBITIOUS LOVE", traits: "Bored, Proud, Romantic", description: "Marquis' daughter. She loves Julien because he is dangerous and intellectual, representing 'Red' defiance.", alignment: 'red', imagePrompt: "Haughty young noblewoman, complex hair, intense gaze", x: 80, y: 55, socialX: 75, socialY: 15, size: 'md' },
-  { id: 'valenod', name: "M. VALENOD", role: "THE RIVAL", traits: "Greedy, Loud, Successful", description: "Julien's social rival in the provinces. His corruption represents the dark side of the 'Black' path.", alignment: 'black', imagePrompt: "Ostentatious man with jewelry, vulgar smile", x: 15, y: 75, socialX: 38, socialY: 42, size: 'sm' },
-  { id: 'elisa', name: "ELISA", role: "THE BETRAYER", traits: "Jealous, Scorned", description: "The maid who loved Julien and, out of jealousy, betrayed him to M. de Rênal, causing the first scandal.", alignment: 'white', imagePrompt: "Young maid in apron, looking with spite and longing", x: 30, y: 85, socialX: 35, socialY: 85, size: 'sm' },
-  { id: 'croisenois', name: "CROISENOIS", role: "THE SUITOR", traits: "Noble, Dull", description: "The perfect aristocratic match for Mathilde. He represents the hollow world of high society.", alignment: 'black', imagePrompt: "Dull, perfect young aristocrat in military uniform", x: 85, y: 75, socialX: 65, socialY: 15, size: 'sm' },
-  { id: 'old_sorel', name: "OLD SOREL", role: "THE FATHER", traits: "Brutal, Greedy", description: "Julien's illiterate father who represents the hard 'Black' world of provincial labor and resentment.", alignment: 'black', imagePrompt: "Grumpy old peasant with rough hands and a mean face", x: 50, y: 90, socialX: 50, socialY: 95, size: 'sm' }
+  { id: 'julien', name: "于连·索雷尔", nameEn: "JULIEN SOREL", role: "英雄", roleEn: "THE HERO", traits: "聪明、骄傲、虚伪", traitsEn: "Intelligent, Proud, Hypocritical", description: "一个木匠的儿子，利用他的智慧和教会来攀登社会阶梯。他在拿破仑式的荣耀之“红”和教会成功的“黑”之间挣扎。", alignment: 'mixed', imagePrompt: "Portrait of a young man with intense dark eyes and a pale face, intellectual look, red and black split background", x: 50, y: 60, socialX: 50, socialY: 82, size: 'lg' },
+  { id: 'abbe_pirard', name: "皮拉尔神父", nameEn: "ABBÉ PIRARD", role: "导师", roleEn: "THE MENTOR", traits: "严厉、诚实、詹森主义者", traitsEn: "Severe, Honest, Jansenist", description: "神学院院长，保护于连并把他介绍到巴黎。一个代表“黑”之道路的严厉父辈形象。", alignment: 'black', imagePrompt: "A stern priest with deep-set eyes, plain black cassock, high contrast red background", x: 50, y: 15, socialX: 20, socialY: 45, size: 'md' },
+  { id: 'marquis', name: "德·拉莫尔侯爵", nameEn: "MARQUIS DE LA MOLE", role: "赞助人", roleEn: "THE PATRON", traits: "机智、有影响力、高贵", traitsEn: "Witty, Influential, Noble", description: "一位大领主，赏识于连的才华并待他如子。他代表了贵族权力的顶峰。", alignment: 'black', imagePrompt: "Elderly gentleman with silver hair, noble posture, wearing a sash", x: 85, y: 30, socialX: 90, socialY: 15, size: 'md' },
+  { id: 'm_renal', name: "雷纳尔先生", nameEn: "M. DE RÊNAL", role: "障碍", roleEn: "THE OBSTACLE", traits: "琐碎、富有、唯物主义", traitsEn: "Petty, Wealthy, Materialistic", description: "维里耶尔市长，痴迷于地位。他雇佣于连是为了炫耀他的财富和控制力。", alignment: 'black', imagePrompt: "Pompous man in 19th century mayor sash, looking self-important", x: 15, y: 30, socialX: 20, socialY: 40, size: 'md' },
+  { id: 'mme_renal', name: "雷纳尔夫人", nameEn: "MME DE RÊNAL", role: "真爱", roleEn: "TRUE LOVE", traits: "虔诚、天真、热情", traitsEn: "Pious, Naive, Passionate", description: "于连的初恋。她虔诚的天性与她的通奸行为相冲突，导致了激情的“红”。", alignment: 'red', imagePrompt: "Gentle woman in 19th century dress, sorrowful expression, surrounded by roses", x: 20, y: 55, socialX: 25, socialY: 45, size: 'md' },
+  { id: 'mathilde', name: "玛蒂尔德", nameEn: "MATHILDE", role: "野心之爱", roleEn: "AMBITIOUS LOVE", traits: "无聊、骄傲、浪漫", traitsEn: "Bored, Proud, Romantic", description: "侯爵的女儿。她爱于连是因为他危险且有才智，代表了“红”之反叛。", alignment: 'red', imagePrompt: "Haughty young noblewoman, complex hair, intense gaze", x: 80, y: 55, socialX: 75, socialY: 15, size: 'md' },
+  { id: 'valenod', name: "瓦勒诺先生", nameEn: "M. VALENOD", role: "竞争对手", roleEn: "THE RIVAL", traits: "贪婪、大声、成功", traitsEn: "Greedy, Loud, Successful", description: "于连在省籍的社会竞争对手。他的腐败代表了“黑”之道路的阴暗面。", alignment: 'black', imagePrompt: "Ostentatious man with jewelry, vulgar smile", x: 15, y: 75, socialX: 38, socialY: 42, size: 'sm' },
+  { id: 'elisa', name: "艾丽莎", nameEn: "ELISA", role: "背叛者", roleEn: "THE BETRAYER", traits: "嫉妒、被蔑视", traitsEn: "Jealous, Scorned", description: "爱过于连的女仆，出于嫉妒，向雷纳尔先生背叛了他，导致了第一场丑闻。", alignment: 'white', imagePrompt: "Young maid in apron, looking with spite and longing", x: 30, y: 85, socialX: 35, socialY: 85, size: 'sm' },
+  { id: 'croisenois', name: "克罗瓦兹诺", nameEn: "CROISENOIS", role: "追求者", roleEn: "THE SUITOR", traits: "高贵、乏味", traitsEn: "Noble, Dull", description: "玛蒂尔德完美的贵族配偶。他代表了上流社会的空洞世界。", alignment: 'black', imagePrompt: "Dull, perfect young aristocrat in military uniform", x: 85, y: 75, socialX: 65, socialY: 15, size: 'sm' },
+  { id: 'old_sorel', name: "老索雷尔", nameEn: "OLD SOREL", role: "父亲", roleEn: "THE FATHER", traits: "残暴、贪婪", traitsEn: "Brutal, Greedy", description: "于连不识字的父亲，代表了省籍劳作和怨恨的坚硬“黑”之世界。", alignment: 'black', imagePrompt: "Grumpy old peasant with rough hands and a mean face", x: 50, y: 90, socialX: 50, socialY: 95, size: 'sm' }
 ];
 
 export const JULIEN_LINKS: NetworkLink[] = [
-  { from: 'julien', to: 'mme_renal', label: 'True Love', type: 'solid', color: '#cf1313', viewMode: 'ALL' },
-  { from: 'julien', to: 'mathilde', label: 'Ambition', type: 'solid', color: '#d4af37', viewMode: 'ALL' },
-  { from: 'julien', to: 'marquis', label: 'Protege', type: 'dashed', color: 'gray', viewMode: 'ALL' },
-  { from: 'abbe_pirard', to: 'julien', label: 'Son', type: 'dotted', color: 'black', viewMode: 'ALL' },
-  { from: 'abbe_pirard', to: 'marquis', label: 'Allies', type: 'dashed', color: 'black', viewMode: 'ALL' },
-  { from: 'mme_renal', to: 'm_renal', label: 'Harassment', type: 'dotted', color: 'gray', viewMode: 'ALL' },
-  { from: 'julien', to: 'm_renal', label: 'Enemy', type: 'solid', color: 'black', viewMode: 'ALL' },
-  { from: 'julien', to: 'valenod', label: 'Rival', type: 'dotted', color: 'black', viewMode: 'ALL' },
-  { from: 'julien', to: 'elisa', label: 'Betrayal', type: 'dotted', color: 'black', viewMode: 'ALL' },
-  { from: 'julien', to: 'old_sorel', label: 'Son', type: 'solid', color: 'gray', viewMode: 'ALL' },
-  { from: 'mathilde', to: 'croisenois', label: 'Bet', type: 'dotted', color: 'gray', viewMode: 'ALL' },
-  { from: 'marquis', to: 'mathilde', label: 'Love', type: 'solid', color: 'gray', viewMode: 'ALL' }
+  { from: 'julien', to: 'mme_renal', label: '真爱', labelEn: 'True Love', type: 'solid', color: '#cf1313', viewMode: 'ALL' },
+  { from: 'julien', to: 'mathilde', label: '野心', labelEn: 'Ambition', type: 'solid', color: '#d4af37', viewMode: 'ALL' },
+  { from: 'julien', to: 'marquis', label: '门生', labelEn: 'Protege', type: 'dashed', color: 'gray', viewMode: 'ALL' },
+  { from: 'abbe_pirard', to: 'julien', label: '子辈', labelEn: 'Son', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'abbe_pirard', to: 'marquis', label: '盟友', labelEn: 'Allies', type: 'dashed', color: 'black', viewMode: 'ALL' },
+  { from: 'mme_renal', to: 'm_renal', label: '骚扰', labelEn: 'Harassment', type: 'dotted', color: 'gray', viewMode: 'ALL' },
+  { from: 'julien', to: 'm_renal', label: '敌人', labelEn: 'Enemy', type: 'solid', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'valenod', label: '对手', labelEn: 'Rival', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'elisa', label: '背叛', labelEn: 'Betrayal', type: 'dotted', color: 'black', viewMode: 'ALL' },
+  { from: 'julien', to: 'old_sorel', label: '子辈', labelEn: 'Son', type: 'solid', color: 'gray', viewMode: 'ALL' },
+  { from: 'mathilde', to: 'croisenois', label: '赌注', labelEn: 'Bet', type: 'dotted', color: 'gray', viewMode: 'ALL' },
+  { from: 'marquis', to: 'mathilde', label: '爱', labelEn: 'Love', type: 'solid', color: 'gray', viewMode: 'ALL' }
 ];

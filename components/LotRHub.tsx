@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ViewState } from '../types';
 import { Swords, Compass, MousePointer2, Feather, Shield, Crown, ArrowRight, Sparkles } from 'lucide-react';
 import { GenerativeImage } from './GenerativeImage';
+import { useLanguage } from '../src/contexts/LanguageContext';
 
 interface LotRHubProps {
   onNavigate: (state: ViewState) => void;
 }
 
 export const LotRHub: React.FC<LotRHubProps> = ({ onNavigate }) => {
+  const { t } = useLanguage();
   const [showSplash, setShowSplash] = useState(true);
   const [activeSection, setActiveSection] = useState<number>(0);
   const [embers, setEmbers] = useState<{id: number, left: string, delay: string, size: string}[]>([]);
@@ -29,42 +31,42 @@ export const LotRHub: React.FC<LotRHubProps> = ({ onNavigate }) => {
   const sections = [
     { 
         id: ViewState.LOTR_QUIZ, 
-        title: "Trial of Destiny", 
+        title: t("命运审判", "Trial of Destiny"), 
         icon: Sparkles, 
-        desc: "Which legendary figure of the Third Age mirrors your soul?",
-        quote: "Fate is often hidden in the choices we make.",
+        desc: t("第三纪元的哪位传奇人物映照着你的灵魂？", "Which legendary figure of the Third Age mirrors your soul?"),
+        quote: t("命运往往隐藏在我们所做的选择中。", "Fate is often hidden in the choices we make."),
         imagePrompt: "A mystical glowing mirror in a dark ancient temple, reflections of heroes"
     },
     { 
         id: ViewState.LOTR_CHARACTERS, 
-        title: "Character Map", 
+        title: t("人物图谱", "Character Map"), 
         icon: Shield, 
-        desc: "The lineages of Men, Elves, Dwarves, and Hobbits.",
-        quote: "All that is gold does not glitter, not all those who wander are lost.",
+        desc: t("人类、精灵、矮人和霍比特人的血脉传承。", "The lineages of Men, Elves, Dwarves, and Hobbits."),
+        quote: t("真金不一定闪闪发光，并非所有流浪者都迷失了方向。", "All that is gold does not glitter, not all those who wander are lost."),
         imagePrompt: "A collection of ancient portraits on a stone wall, torchlight, medieval fantasy"
     },
     { 
         id: ViewState.LOTR_STORY_1, 
-        title: "The Fellowship", 
+        title: t("护戒使者", "The Fellowship"), 
         icon: Feather, 
-        desc: "The journey begins from the quiet hills of the Shire.",
-        quote: "I will take the Ring, though I do not know the way.",
+        desc: t("旅程从夏尔宁静的山丘开始。", "The journey begins from the quiet hills of the Shire."),
+        quote: t("我会带着戒指，虽然我不知道路。", "I will take the Ring, though I do not know the way."),
         imagePrompt: "A group of nine silhouettes walking over a misty mountain ridge, sunrise, epic fantasy"
     },
     { 
         id: ViewState.LOTR_STORY_2, 
-        title: "The Two Towers", 
+        title: t("双塔奇兵", "The Two Towers"), 
         icon: Swords, 
-        desc: "Darkness spreads from Isengard and Mordor alike.",
-        quote: "There is some good in this world, and it's worth fighting for.",
+        desc: t("黑暗从艾辛格和魔多同时蔓延。", "Darkness spreads from Isengard and Mordor alike."),
+        quote: t("这世界上还有一些美好的东西，值得我们为之奋斗。", "There is some good in this world, and it's worth fighting for."),
         imagePrompt: "Two tall dark stone towers facing each other across a valley, lightning, ominous atmosphere"
     },
     { 
         id: ViewState.LOTR_STORY_3, 
-        title: "Return of the King", 
+        title: t("王者归来", "Return of the King"), 
         icon: Crown, 
-        desc: "The final battle for the fate of Middle-earth.",
-        quote: "End? No, the journey doesn't end here.",
+        desc: t("中土世界命运的最终决战。", "The final battle for the fate of Middle-earth."),
+        quote: t("结束？不，旅程不会在这里结束。", "End? No, the journey doesn't end here."),
         imagePrompt: "A crown made of silver and gold resting on a white stone altar, ray of light, triumphant"
     }
   ];
@@ -83,7 +85,8 @@ export const LotRHub: React.FC<LotRHubProps> = ({ onNavigate }) => {
         </div>
         <motion.div className="relative z-10 max-w-4xl px-4">
             <h2 className="text-2xl md:text-5xl font-title tracking-[0.3em] uppercase mb-6 lotr-entry-text leading-relaxed">
-                All that is gold does not glitter,<br/>Not all those who wander are lost.
+                {t('真金不一定闪闪发光，', 'All that is gold does not glitter,')}<br/>
+                {t('并非所有流浪者都迷失了方向。', 'Not all those who wander are lost.')}
             </h2>
             <motion.div initial={{ scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 0.4 }} transition={{ delay: 1, duration: 2 }} className="h-[1px] w-64 md:w-96 bg-gradient-to-r from-transparent via-[#ffd700] to-transparent mx-auto mt-12 shadow-[0_0_15px_#ffd700]" />
         </motion.div>
@@ -111,8 +114,12 @@ export const LotRHub: React.FC<LotRHubProps> = ({ onNavigate }) => {
 
         <div className="w-full md:flex-1 relative z-20 p-6 md:p-12 border-b md:border-b-0 md:border-r border-black/10 flex flex-col h-1/2 md:h-full overflow-y-auto scrollbar-vintage bg-transparent">
             <header className="mb-6 md:mb-10 border-b border-[#1a120b]/20 pb-4">
-                <span className="font-fantasy text-[10px] uppercase tracking-[0.4em] text-[#5c4d3c] font-bold opacity-60">Westmarch Archives</span>
-                <h1 className="text-2xl md:text-5xl font-black text-[#1a120b] uppercase tracking-tighter mt-2 font-uncial">Chronicles</h1>
+                <span className="font-fantasy text-[10px] uppercase tracking-[0.4em] text-[#5c4d3c] font-bold opacity-60">
+                    {t('西境档案馆', 'Westmarch Archives')}
+                </span>
+                <h1 className="text-2xl md:text-5xl font-black text-[#1a120b] uppercase tracking-tighter mt-2 font-uncial">
+                    {t('编年史', 'Chronicles')}
+                </h1>
             </header>
 
             <div className="flex-1 space-y-2 md:space-y-3">
@@ -171,7 +178,7 @@ export const LotRHub: React.FC<LotRHubProps> = ({ onNavigate }) => {
                             className="inline-flex items-center gap-2 bg-[#1a120b] text-[#d4af37] px-8 py-3 rounded-sm font-mono text-[10px] md:text-xs font-bold uppercase tracking-widest border border-[#d4af37]/30 shadow-lg"
                             onClick={() => onNavigate(sections[activeSection].id)}
                         >
-                            Open Records <ArrowRight size={14} />
+                            {t('开启记录', 'Open Records')} <ArrowRight size={14} />
                         </motion.button>
                         <p className="text-[9px] md:text-[10px] font-mono italic text-gray-600 font-bold tracking-[0.2em] uppercase mt-4">
                             {sections[activeSection].quote}

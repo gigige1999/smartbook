@@ -3,6 +3,7 @@ import { BUENDIA_FAMILY } from '../constants';
 import { Character } from '../types';
 import { GenerativeImage } from './GenerativeImage';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../src/contexts/LanguageContext';
 import { 
     X, ChevronDown, 
     Scroll, Sparkles, FlaskConical, Home, 
@@ -22,6 +23,7 @@ const IconMap: Record<string, React.FC<any>> = {
 };
 
 export const FamilyTree: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedChar, setSelectedChar] = useState<Character | null>(null);
 
   // Group characters by generation
@@ -30,13 +32,13 @@ export const FamilyTree: React.FC = () => {
 
   const getGenerationTitle = (gen: number) => {
     switch (gen) {
-      case 1: return "The Founders";
-      case 2: return "Expansion & Division";
-      case 3: return "Chaos & Tragedy";
-      case 4: return "Prosperity & Decay";
-      case 5: return "Modern Solitude";
-      case 6: return "The Return";
-      case 7: return "The Prophecy Fulfilled";
+      case 1: return t("创始人", "The Founders");
+      case 2: return t("扩张与分裂", "Expansion & Division");
+      case 3: return t("混乱与悲剧", "Chaos & Tragedy");
+      case 4: return t("繁荣与衰败", "Prosperity & Decay");
+      case 5: return t("现代孤独", "Modern Solitude");
+      case 6: return t("回归", "The Return");
+      case 7: return t("预言成真", "The Prophecy Fulfilled");
       default: return "";
     }
   };
@@ -49,8 +51,8 @@ export const FamilyTree: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 py-12 relative z-10">
         
         <div className="text-center mb-16 space-y-4">
-            <h2 className="font-title text-4xl text-[#2c241b] tracking-widest">The Buendía Lineage</h2>
-            <p className="font-hand text-[#5c4d3c]">A history of solitude repeated through seven generations.</p>
+            <h2 className="font-title text-4xl text-[#2c241b] tracking-widest">{t('布恩迪亚家族世系', 'The Buendía Lineage')}</h2>
+            <p className="font-hand text-[#5c4d3c]">{t('七代人重复的孤独历史。', 'A history of solitude repeated through seven generations.')}</p>
              <motion.div 
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -63,7 +65,7 @@ export const FamilyTree: React.FC = () => {
         {/* External Influences */}
         <div className="mb-24 relative">
              <h3 className="text-center font-mono text-sm text-[#8a7a5f] uppercase tracking-[0.3em] mb-8 border-b border-[#8a7a5f] inline-block left-1/2 -translate-x-1/2 relative px-4 pb-2">
-                External Influences
+                {t('外部影响', 'External Influences')}
              </h3>
              <div className="flex justify-center gap-8 md:gap-16 flex-wrap">
                 {externalChars.map(char => (
@@ -84,7 +86,7 @@ export const FamilyTree: React.FC = () => {
                         <div className="flex items-center justify-center gap-4 mb-10">
                             <div className="h-[1px] w-12 bg-[#5c4d3c] opacity-50"></div>
                             <div className="text-center">
-                                <span className="block font-title text-2xl text-[#2c241b]">Generation {toRoman(gen)}</span>
+                                <span className="block font-title text-2xl text-[#2c241b]">{t(`第 ${toRoman(gen)} 代`, `Generation ${toRoman(gen)}`)}</span>
                                 <span className="block font-mono text-xs text-[#8a7a5f] uppercase tracking-wider">{getGenerationTitle(gen)}</span>
                             </div>
                             <div className="h-[1px] w-12 bg-[#5c4d3c] opacity-50"></div>
@@ -108,6 +110,7 @@ export const FamilyTree: React.FC = () => {
 };
 
 const CharacterNode: React.FC<{ char: Character, onClick: (c: Character) => void }> = ({ char, onClick }) => {
+    const { t } = useLanguage();
     const isFamily = char.type === 'FAMILY';
     const Icon = IconMap[char.symbol] || Sparkles;
     
@@ -145,7 +148,7 @@ const CharacterNode: React.FC<{ char: Character, onClick: (c: Character) => void
                 <span className={`block font-hand font-bold text-sm bg-[#f2efe9] px-2 py-1 shadow-sm border border-[#d6cfc4] text-[#2c241b]
                      ${!isFamily && 'text-[#5c4d3c]'}
                 `}>
-                    {char.name}
+                    {t(char.name, char.nameEn)}
                 </span>
                 
                 {/* Mobile visible icon (since hover doesn't work well on mobile) */}
@@ -154,7 +157,7 @@ const CharacterNode: React.FC<{ char: Character, onClick: (c: Character) => void
                 </div>
 
                 <span className="text-[10px] font-mono text-[#5c4d3c] mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">
-                    {char.relation}
+                    {t(char.relation, char.relationEn)}
                 </span>
             </div>
         </motion.div>
@@ -162,6 +165,7 @@ const CharacterNode: React.FC<{ char: Character, onClick: (c: Character) => void
 };
 
 const CharacterModal: React.FC<{ char: Character | null, onClose: () => void }> = ({ char, onClose }) => {
+    const { t } = useLanguage();
     if (!char) return null;
     const Icon = IconMap[char.symbol] || Sparkles;
 
@@ -205,8 +209,8 @@ const CharacterModal: React.FC<{ char: Character | null, onClose: () => void }> 
                         <div className="w-full md:w-1/2 p-8 space-y-6 relative paper-texture">
                             <div className="space-y-2 border-b-2 border-[#2c241b] pb-4 flex items-center justify-between">
                                 <div>
-                                    <h2 className="font-title text-3xl text-[#2c241b]">{char.name}</h2>
-                                    <p className="font-mono text-xs uppercase tracking-widest text-[#5c4d3c]">{char.relation}</p>
+                                    <h2 className="font-title text-3xl text-[#2c241b]">{t(char.name, char.nameEn)}</h2>
+                                    <p className="font-mono text-xs uppercase tracking-widest text-[#5c4d3c]">{t(char.relation, char.relationEn)}</p>
                                 </div>
                                 <div className="text-[#5c4d3c]">
                                     <Icon size={32} strokeWidth={1.5} />
@@ -215,22 +219,25 @@ const CharacterModal: React.FC<{ char: Character | null, onClose: () => void }> 
 
                             <div className="prose prose-stone">
                                 <p className="font-hand text-lg leading-relaxed text-[#2c241b]">
-                                    "{char.description}"
+                                    "{t(char.description, char.descriptionEn)}"
                                 </p>
                             </div>
 
                             <div className="pt-4 space-y-2 text-sm font-mono text-[#5c4d3c]">
                                 {char.partner && (
                                     <div className="flex gap-2">
-                                        <span className="font-bold">Partner:</span>
+                                        <span className="font-bold">{t('伴侣', 'Partner')}:</span>
                                         <span>{BUENDIA_FAMILY.find(c => c.id === char.partner)?.name || char.partner}</span>
                                     </div>
                                 )}
                                 {char.parents && (
                                     <div className="flex gap-2">
-                                        <span className="font-bold">Lineage:</span>
+                                        <span className="font-bold">{t('血脉', 'Lineage')}:</span>
                                         <span>
-                                            {char.parents.map(pid => BUENDIA_FAMILY.find(c => c.id === pid)?.name).join(' & ')}
+                                            {char.parents.map(pid => {
+                                                const parent = BUENDIA_FAMILY.find(c => c.id === pid);
+                                                return parent ? t(parent.name, parent.nameEn) : pid;
+                                            }).join(' & ')}
                                         </span>
                                     </div>
                                 )}

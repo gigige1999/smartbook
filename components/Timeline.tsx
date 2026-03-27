@@ -4,8 +4,10 @@ import { StoryPhase } from '../types';
 import { STORY_PHASES } from '../constants';
 import { GenerativeImage } from './GenerativeImage';
 import { ArrowDown } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
 
 export const Timeline: React.FC = () => {
+  const { t } = useLanguage();
   const [revealedIndex, setRevealedIndex] = useState(0);
 
   const revealNext = () => {
@@ -21,8 +23,8 @@ export const Timeline: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto py-12 px-4 space-y-16 pb-40">
       <div className="text-center space-y-4 mb-16">
-        <h2 className="font-title text-3xl text-[#2c241b]">The Cycle of Time</h2>
-        <p className="font-hand text-[#5c4d3c]">Events repeat themselves in a wheel that spins for eternity...</p>
+        <h2 className="font-title text-3xl text-[#2c241b]">{t('时间的轮回', 'The Cycle of Time')}</h2>
+        <p className="font-hand text-[#5c4d3c]">{t('事件在永恒转动的轮盘中不断重演……', 'Events repeat themselves in a wheel that spins for eternity...')}</p>
       </div>
 
       <div className="relative border-l-2 border-[#5c4d3c] border-dashed ml-6 md:ml-10 space-y-16">
@@ -39,7 +41,7 @@ export const Timeline: React.FC = () => {
                     className="flex items-center gap-2 bg-[#2c241b] text-[#e3dcd2] px-6 py-3 rounded-sm font-mono text-sm hover:bg-[#4a3b2a] transition-colors shadow-lg z-10 relative"
                  >
                     <ArrowDown size={16} />
-                    Next Cycle
+                    {t('下一个轮回', 'Next Cycle')}
                  </button>
              </div>
         )}
@@ -49,6 +51,7 @@ export const Timeline: React.FC = () => {
 };
 
 const TimelineCard: React.FC<{ phase: StoryPhase, index: number }> = ({ phase, index }) => {
+  const { t } = useLanguage();
   return (
     <motion.div 
       initial={{ opacity: 0, x: -20, rotate: -1 }}
@@ -65,7 +68,7 @@ const TimelineCard: React.FC<{ phase: StoryPhase, index: number }> = ({ phase, i
              <div className="relative -rotate-2 transform transition-transform hover:rotate-0 duration-500">
                 <GenerativeImage 
                     initialPrompt={phase.imagePrompt} 
-                    alt={phase.title}
+                    alt={t(phase.title, phase.titleEn)}
                     aspectRatio="aspect-[3/4]"
                     className="shadow-md"
                 />
@@ -76,11 +79,11 @@ const TimelineCard: React.FC<{ phase: StoryPhase, index: number }> = ({ phase, i
           
           <div className="flex-1 space-y-4">
             <div className="flex items-baseline justify-between border-b border-[#d6cfc4] pb-2">
-                <h3 className="font-title text-xl font-bold text-[#2c241b]">{phase.title}</h3>
-                <span className="font-mono text-xs text-[#8a7a5f]">Phase {phase.id}</span>
+                <h3 className="font-title text-xl font-bold text-[#2c241b]">{t(phase.title, phase.titleEn)}</h3>
+                <span className="font-mono text-xs text-[#8a7a5f]">{t('阶段', 'Phase')} {phase.id}</span>
             </div>
             <p className="font-hand text-lg leading-relaxed text-[#4a3b2a]">
-              {phase.description}
+              {t(phase.description, phase.descriptionEn)}
             </p>
           </div>
         </div>

@@ -2,24 +2,37 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BOOKS } from '../constants';
 import { Book } from '../types';
-import { Lock } from 'lucide-react';
+import { Lock, Languages } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
+import { Language } from '../types';
 
 interface LibraryProps {
   onSelectBook: (bookId: string) => void;
 }
 
 export const Library: React.FC<LibraryProps> = ({ onSelectBook }) => {
+  const { language, setLanguage, t } = useLanguage();
+
   return (
-    <div className="min-h-screen py-20 px-4 md:px-8">
+    <div className="min-h-screen py-20 px-4 md:px-8 relative">
+      <div className="absolute top-4 right-4 z-50">
+          <button 
+            onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
+            className="flex items-center gap-2 bg-[#2c241b] text-[#e3dcd2] px-4 py-2 rounded-sm font-mono text-xs hover:bg-[#4a3b2a] transition-colors shadow-lg border border-[#8a7a5f]/30"
+          >
+            <Languages size={16} />
+            {language === Language.ZH ? 'English' : '中文'}
+          </button>
+      </div>
       <div className="max-w-6xl mx-auto space-y-16">
         
         <header className="text-center space-y-4">
           <h1 className="font-title text-4xl md:text-5xl text-[#2c241b] tracking-widest">
-            THE ARCHIVES
+            {t('档案馆', 'THE ARCHIVES')}
           </h1>
           <div className="h-[2px] w-24 bg-[#5c4d3c] mx-auto opacity-50"></div>
           <p className="font-hand text-[#5c4d3c] text-lg">
-            Choose a manuscript to unravel its secrets.
+            {t('选择一本手稿，揭开它的秘密。', 'Choose a manuscript to unravel its secrets.')}
           </p>
         </header>
 
@@ -35,6 +48,8 @@ export const Library: React.FC<LibraryProps> = ({ onSelectBook }) => {
 };
 
 const BookCard: React.FC<{ book: Book, index: number, onSelect: (id: string) => void }> = ({ book, index, onSelect }) => {
+  const { t } = useLanguage();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -60,16 +75,18 @@ const BookCard: React.FC<{ book: Book, index: number, onSelect: (id: string) => 
 
           <div className="h-full flex flex-col justify-between text-[#e3dcd2] text-center">
             <div className="mt-8 space-y-2">
-                <span className="font-mono text-[10px] tracking-[0.2em] opacity-70 uppercase block">Interactive Book</span>
+                <span className="font-mono text-[10px] tracking-[0.2em] opacity-70 uppercase block">
+                    {t('互动书籍', 'Interactive Book')}
+                </span>
                 <div className="w-8 h-[1px] bg-[#e3dcd2]/40 mx-auto"></div>
             </div>
 
             <h2 className="font-title text-2xl leading-snug tracking-wide">
-              {book.title}
+              {t(book.title, book.titleEn)}
             </h2>
 
             <div className="mb-8">
-                <p className="font-hand text-xs opacity-80 mb-2">{book.author}</p>
+                <p className="font-hand text-xs opacity-80 mb-2">{t(book.author, book.authorEn)}</p>
                 {book.locked ? (
                     <div className="flex justify-center mt-4">
                         <Lock size={20} className="text-white/50" />

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trash2, HardDrive, DownloadCloud } from 'lucide-react';
+import { X, Trash2, HardDrive, DownloadCloud, Languages } from 'lucide-react';
 import { clearImageCache, getStorageUsage } from '../services/storageService';
+import { useLanguage } from '../src/contexts/LanguageContext';
+import { Language } from '../types';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -10,6 +12,7 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const [usage, setUsage] = useState<string>('Calculating...');
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -50,6 +53,27 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
 
              <div className="p-6 space-y-8">
                  
+                 <div className="space-y-4">
+                     <div className="flex items-center gap-3 text-[#5c4d3c]">
+                        <Languages size={24} />
+                        <h3 className="font-hand font-bold text-lg">{t('语言设置', 'Language Settings')}</h3>
+                     </div>
+                     <div className="flex gap-2">
+                         <button 
+                            onClick={() => setLanguage(Language.ZH)}
+                            className={`flex-1 p-2 border-2 font-mono text-sm transition-all ${language === Language.ZH ? 'bg-[#2c241b] text-[#e3dcd2] border-[#2c241b]' : 'bg-transparent text-[#2c241b] border-[#2c241b]/30 hover:border-[#2c241b]'}`}
+                         >
+                             中文 (ZH)
+                         </button>
+                         <button 
+                            onClick={() => setLanguage(Language.EN)}
+                            className={`flex-1 p-2 border-2 font-mono text-sm transition-all ${language === Language.EN ? 'bg-[#2c241b] text-[#e3dcd2] border-[#2c241b]' : 'bg-transparent text-[#2c241b] border-[#2c241b]/30 hover:border-[#2c241b]'}`}
+                         >
+                             English (EN)
+                         </button>
+                     </div>
+                 </div>
+
                  <div className="space-y-4">
                      <div className="flex items-center gap-3 text-[#5c4d3c]">
                         <HardDrive size={24} />

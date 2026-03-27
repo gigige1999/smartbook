@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import { Book } from '../types';
+import { ArrowLeft, Languages } from 'lucide-react';
+import { Book, Language } from '../types';
+import { useLanguage } from '../src/contexts/LanguageContext';
 
 interface BookCoverProps {
   book: Book | null;
@@ -11,6 +12,7 @@ interface BookCoverProps {
 }
 
 export const BookCover: React.FC<BookCoverProps> = ({ book, onOpen, onBack }) => {
+  const { language, setLanguage, t } = useLanguage();
   if (!book) return null;
 
   const isRedBlack = book.id === 'red_black';
@@ -40,8 +42,20 @@ export const BookCover: React.FC<BookCoverProps> = ({ book, onOpen, onBack }) =>
         `}
       >
         <ArrowLeft size={20} />
-        <span className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">Library</span>
+        <span className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">{t('图书馆', 'Library')}</span>
       </button>
+
+      <div className="absolute top-4 right-4 z-50">
+          <button 
+            onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-sm font-mono text-xs transition-colors shadow-lg border
+                ${isLotR ? 'bg-[#1a2a1a] text-[#d4af37] border-[#d4af37]/30 hover:bg-[#2a3a2a]' : isRedBlack ? 'bg-black text-white border-white/20 hover:bg-gray-900' : 'bg-[#2c241b] text-[#e3dcd2] border-[#8a7a5f]/30 hover:bg-[#4a3b2a]'}
+            `}
+          >
+            <Languages size={16} />
+            {language === Language.ZH ? 'English' : '中文'}
+          </button>
+      </div>
 
       <motion.div 
         initial={{ scale: 0.9, opacity: 0, rotateY: -20 }}
@@ -85,7 +99,7 @@ export const BookCover: React.FC<BookCoverProps> = ({ book, onOpen, onBack }) =>
           
           <div className="p-10 text-center space-y-10 z-10 relative">
             <h1 className={`${titleFont} text-3xl md:text-5xl leading-tight uppercase`} style={{ color: textColor }}>
-              {book.title.split(' ').map((word, i) => (
+              {t(book.title, book.titleEn).split(' ').map((word, i) => (
                   <span key={i} className="block drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">{word}</span>
               ))}
             </h1>
@@ -98,7 +112,7 @@ export const BookCover: React.FC<BookCoverProps> = ({ book, onOpen, onBack }) =>
 
             <div className="space-y-2">
                 <p className="font-hand text-xl italic" style={{ color: accentColor }}>
-                  {book.author}
+                  {t(book.author, book.authorEn)}
                 </p>
                 {isLotR && <div className="h-[2px] w-16 bg-[#d4af37]/30 mx-auto"></div>}
             </div>
@@ -109,7 +123,7 @@ export const BookCover: React.FC<BookCoverProps> = ({ book, onOpen, onBack }) =>
               className="font-mono text-[10px] tracking-widest uppercase opacity-60" 
               style={{ color: textColor }}
             >
-              Open the Manuscripts
+              {t('开启手稿', 'Open the Manuscripts')}
             </motion.p>
           </div>
 

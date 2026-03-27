@@ -5,8 +5,10 @@ import { JULIEN_JOURNEY } from '../constants';
 import { JourneyNode } from '../types';
 import { GenerativeImage } from './GenerativeImage';
 import { Brain, X, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
 
 export const RedBlackJourney: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedNode, setSelectedNode] = useState<JourneyNode | null>(null);
 
   return (
@@ -22,9 +24,11 @@ export const RedBlackJourney: React.FC = () => {
         
         <header className="text-center mb-20">
           <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-black uppercase">
-            The Red <span className="text-[#cf1313]">&</span> Black
+            {t('红', 'The Red')} <span className="text-[#cf1313]">&</span> {t('黑', 'Black')}
           </h1>
-          <p className="text-gray-600 font-mono text-xs md:text-sm tracking-[0.3em] uppercase">Julien Sorel's Descent</p>
+          <p className="text-gray-600 font-mono text-xs md:text-sm tracking-[0.3em] uppercase">
+            {t('于连·索雷尔的堕落之路', "Julien Sorel's Descent")}
+          </p>
         </header>
 
         {/* Timeline */}
@@ -50,7 +54,9 @@ export const RedBlackJourney: React.FC = () => {
                             />
                         </div>
                         <div className="h-10 border-t-2 border-black flex items-center justify-center bg-white">
-                            <span className="font-mono text-[10px] uppercase font-black tracking-widest">{node.title.length > 15 ? 'THE SEEKER' : node.title}</span>
+                            <span className="font-mono text-[10px] uppercase font-black tracking-widest">
+                                {t(node.title, node.titleEn).length > 15 ? t('求索者', 'THE SEEKER') : t(node.title, node.titleEn)}
+                            </span>
                         </div>
                      </div>
                   </div>
@@ -81,9 +87,9 @@ export const RedBlackJourney: React.FC = () => {
                         
                         <div className={`absolute top-0 left-0 bottom-0 w-2 ${node.dominantColor === 'red' ? 'bg-[#cf1313]' : 'bg-black'}`}></div>
 
-                        <h3 className="font-black text-2xl mb-4 uppercase tracking-tighter">{node.title}</h3>
+                        <h3 className="font-black text-2xl mb-4 uppercase tracking-tighter">{t(node.title, node.titleEn)}</h3>
                         <p className="text-sm text-gray-800 font-mono leading-relaxed mb-6">
-                            "{node.context}"
+                            "{t(node.context, node.contextEn)}"
                         </p>
                         
                         <div className="flex flex-wrap gap-2 mb-6">
@@ -95,7 +101,7 @@ export const RedBlackJourney: React.FC = () => {
                         </div>
 
                         <div className="mt-auto pt-6 border-t-2 border-gray-100 flex justify-between items-center text-xs font-black uppercase tracking-tighter hover:text-[#cf1313] transition-colors group-hover/card:translate-x-2 duration-300">
-                            <span>Analyze Psyche</span>
+                            <span>{t('心理分析', 'Analyze Psyche')}</span>
                             <ArrowRight size={18}/>
                         </div>
                      </div>
@@ -145,26 +151,26 @@ export const RedBlackJourney: React.FC = () => {
               {/* Analysis Side */}
               <div className="w-full md:w-1/2 p-10 flex flex-col bg-[#ffffff] relative">
                  <div className="mb-8 border-b-4 border-black pb-4">
-                    <span className="font-mono text-xs text-[#cf1313] tracking-widest uppercase mb-2 block font-black">Record Phase {selectedNode.id}</span>
-                    <h2 className="text-4xl font-black uppercase leading-none tracking-tighter">{selectedNode.title}</h2>
+                    <span className="font-mono text-xs text-[#cf1313] tracking-widest uppercase mb-2 block font-black">{t(`记录阶段 ${selectedNode.id}`, `Record Phase ${selectedNode.id}`)}</span>
+                    <h2 className="text-4xl font-black uppercase leading-none tracking-tighter">{t(selectedNode.title, selectedNode.titleEn)}</h2>
                  </div>
 
                  <div className="space-y-8 flex-1">
                     <div className="group">
                         <div className="flex items-center gap-3 mb-3 text-[#cf1313]">
-                            <h3 className="font-black uppercase tracking-tighter text-sm">Passion (Rouge)</h3>
+                            <h3 className="font-black uppercase tracking-tighter text-sm">{t('激情 (红)', 'Passion (Rouge)')}</h3>
                         </div>
                         <p className="pl-6 border-l-4 border-[#cf1313] text-gray-900 leading-relaxed font-medium">
-                            {selectedNode.redAspect}
+                            {t(selectedNode.redAspect, selectedNode.redAspectEn)}
                         </p>
                     </div>
 
                     <div className="group">
                         <div className="flex items-center gap-3 mb-3 text-black">
-                            <h3 className="font-black uppercase tracking-tighter text-sm">Calculation (Noir)</h3>
+                            <h3 className="font-black uppercase tracking-tighter text-sm">{t('算计 (黑)', 'Calculation (Noir)')}</h3>
                         </div>
                         <p className="pl-6 border-l-4 border-black text-gray-900 leading-relaxed font-medium">
-                            {selectedNode.blackAspect}
+                            {t(selectedNode.blackAspect, selectedNode.blackAspectEn)}
                         </p>
                     </div>
                  </div>

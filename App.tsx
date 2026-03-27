@@ -12,10 +12,13 @@ import { LotRStory } from './components/LotRStory';
 import { LotRPersonalityTest } from './components/LotRPersonalityTest';
 import { Library } from './components/Library';
 import { AmbientSound } from './components/AmbientSound';
-import { GitBranch, History, BookOpen, Library as LibraryIcon, Network, BrainCircuit, Users, Compass, Sparkles } from 'lucide-react';
+import { GitBranch, History, BookOpen, Library as LibraryIcon, Network, BrainCircuit, Users, Compass, Sparkles, Languages } from 'lucide-react';
 import { BOOKS } from './constants';
+import { useLanguage } from './src/contexts/LanguageContext';
+import { Language } from './types';
 
 const App: React.FC = () => {
+  const { language, setLanguage, t } = useLanguage();
   // Default to 100years intro instead of library
   const [view, setView] = useState<ViewState>(ViewState.INTRO);
   const [currentBookId, setCurrentBookId] = useState<string | null>('100years');
@@ -97,7 +100,7 @@ const App: React.FC = () => {
              <button 
                 onClick={handleBackToLibrary}
                 className={`p-2 rounded-sm transition-colors ${hoverBg}`}
-                title="Back to Library"
+                title={t('返回图书馆', 'Back to Library')}
              >
                 <LibraryIcon size={20} />
              </button>
@@ -105,7 +108,7 @@ const App: React.FC = () => {
              <button 
                 onClick={() => setView(ViewState.INTRO)}
                 className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.INTRO ? activeBg : ''}`}
-                title="Cover"
+                title={t('封面', 'Cover')}
              >
                 <BookOpen size={20} />
              </button>
@@ -115,14 +118,14 @@ const App: React.FC = () => {
                     <button 
                         onClick={() => setView(ViewState.TIMELINE)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.TIMELINE ? activeBg : ''}`}
-                        title="Timeline"
+                        title={t('时间线', 'Timeline')}
                     >
                         <History size={20} />
                     </button>
                     <button 
                         onClick={() => setView(ViewState.FAMILY_TREE)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.FAMILY_TREE ? activeBg : ''}`}
-                        title="Family Tree"
+                        title={t('家族树', 'Family Tree')}
                     >
                         <GitBranch size={20} />
                     </button>
@@ -134,14 +137,14 @@ const App: React.FC = () => {
                     <button 
                         onClick={() => setView(ViewState.JULIEN_JOURNEY)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.JULIEN_JOURNEY ? activeBg : ''}`}
-                        title="Julien's Journey"
+                        title={t('于连的旅程', "Julien's Journey")}
                     >
                         <BrainCircuit size={20} />
                     </button>
                     <button 
                         onClick={() => setView(ViewState.JULIEN_NETWORK)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.JULIEN_NETWORK ? activeBg : ''}`}
-                        title="Character Network"
+                        title={t('人物关系网', 'Character Network')}
                     >
                         <Network size={20} />
                     </button>
@@ -153,34 +156,42 @@ const App: React.FC = () => {
                     <button 
                         onClick={() => setView(ViewState.LOTR_HUB)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.LOTR_HUB ? activeBg : ''}`}
-                        title="The Chronicles Hub"
+                        title={t('编年史中心', 'The Chronicles Hub')}
                     >
                         <Compass size={20} />
                     </button>
                     <button 
                         onClick={() => setView(ViewState.LOTR_CHARACTERS)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.LOTR_CHARACTERS ? activeBg : ''}`}
-                        title="Characters"
+                        title={t('人物', 'Characters')}
                     >
                         <Users size={20} />
                     </button>
                     <button 
                         onClick={() => setView(ViewState.LOTR_QUIZ)}
                         className={`p-2 rounded-sm transition-colors ${hoverBg} ${view === ViewState.LOTR_QUIZ ? activeBg : ''}`}
-                        title="Personality Test"
+                        title={t('性格测试', 'Personality Test')}
                     >
                         <Sparkles size={20} />
                     </button>
                 </>
              )}
+             <div className="w-[1px] bg-white/20 mx-1"></div>
+             <button 
+                onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
+                className={`p-2 rounded-sm transition-colors ${hoverBg}`}
+                title={t('切换语言', 'Switch Language')}
+             >
+                <Languages size={20} />
+             </button>
           </div>
           
           <div className={`pointer-events-auto p-2 rounded border shadow-sm max-w-[150px] text-right bg-white/90 ${isRedBlack ? 'border-black' : isLOTR ? 'border-[#d4af37]' : 'border-[#8a7a5f]'}`}>
              <h1 className={`font-title text-sm font-bold ${titleColor}`}>
-                {currentBook?.title}
+                {t(currentBook?.title || '', currentBook?.titleEn || '')}
              </h1>
              <p className="font-mono text-[10px] text-gray-500 opacity-80">
-                {is100Years ? 'Macondo' : isRedBlack ? 'Verrières' : 'Middle-earth'}
+                {is100Years ? t('马孔多', 'Macondo') : isRedBlack ? t('维里耶尔', 'Verrières') : t('中土世界', 'Middle-earth')}
              </p>
           </div>
         </nav>

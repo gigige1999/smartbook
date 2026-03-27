@@ -5,11 +5,13 @@ import { LOTR_CHARACTERS } from '../constants';
 import { Character } from '../types';
 import { GenerativeImage } from './GenerativeImage';
 import { X, Sword, Shield, BookOpen, ChevronLeft, ChevronRight, User, Award, Zap, Languages } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
+import { Language } from '../types';
 
 export const LotRCharacters: React.FC = () => {
+  const { language, setLanguage, t } = useLanguage();
   const [currentPage, setCurrentPage] = useState(0);
   const [shimmer, setShimmer] = useState(false);
-  const [lang, setLang] = useState<'zh' | 'en'>('zh');
   
   const char = LOTR_CHARACTERS[currentPage];
 
@@ -57,11 +59,11 @@ export const LotRCharacters: React.FC = () => {
 
         {/* Language Toggle */}
         <button 
-          onClick={() => setLang(l => l === 'zh' ? 'en' : 'zh')}
+          onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
           className="absolute top-4 right-16 z-40 bg-[#1a120b] text-[#d4af37] px-3 py-1.5 rounded-sm flex items-center gap-2 hover:scale-105 transition-all font-mono text-[9px] shadow-2xl border border-[#d4af37]/30 font-bold uppercase tracking-widest"
         >
           <Languages size={12} />
-          {lang === 'zh' ? 'EN' : '中文'}
+          {language === Language.ZH ? 'EN' : '中文'}
         </button>
 
         {/* Left Page: Portrait */}
@@ -80,7 +82,7 @@ export const LotRCharacters: React.FC = () => {
                   <div className="absolute inset-0 bg-white p-1 md:p-1.5 z-10 shadow-inner overflow-hidden">
                       <GenerativeImage 
                         initialPrompt={char.imagePrompt}
-                        alt={lang === 'zh' ? char.name : (char.nameEn || char.name)}
+                        alt={t(char.name, char.nameEn)}
                         stylePreset="LOTR_VINTAGE"
                         className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
                         aspectRatio="aspect-square"
@@ -89,10 +91,10 @@ export const LotRCharacters: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20 pointer-events-none opacity-60"></div>
                   <div className="absolute bottom-4 left-4 text-white z-30">
                       <p className="font-fantasy text-[9px] md:text-[14px] uppercase tracking-[0.3em] text-[#d4af37] mb-1 font-bold">
-                        {lang === 'zh' ? char.type : (char.typeEn || char.type)}
+                        {t(char.type, char.typeEn)}
                       </p>
                       <h3 className="text-xl md:text-5xl font-black uppercase font-uncial leading-tight drop-shadow-lg">
-                        {lang === 'zh' ? char.name.split(' (')[0] : (char.nameEn || char.name).split(' (')[0]}
+                        {t(char.name, char.nameEn).split(' (')[0]}
                       </h3>
                   </div>
               </div>
@@ -104,7 +106,7 @@ export const LotRCharacters: React.FC = () => {
         <div className="w-full md:w-1/2 h-3/5 md:h-full p-6 md:p-12 flex flex-col relative z-20 bg-transparent overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${char.id}-${lang}`}
+              key={`${char.id}-${language}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
@@ -116,14 +118,14 @@ export const LotRCharacters: React.FC = () => {
                 <div className="flex items-center gap-2 text-black/30 border-b border-black/10 pb-1.5">
                     <BookOpen size={16} />
                     <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-black">
-                        {lang === 'zh' ? '古籍善本 · 第' : 'ELDER RECORDS · FOLIO'} {currentPage + 1} {lang === 'zh' ? '页' : ''}
+                        {t('古籍善本 · 第', 'ELDER RECORDS · FOLIO')} {currentPage + 1} {t('页', '')}
                     </span>
                 </div>
                 <h2 className={`
-                  ${lang === 'en' ? 'font-uncial' : 'font-title'}
+                  ${language === Language.EN ? 'font-uncial' : 'font-title'}
                   text-2xl md:text-5xl font-black text-[#1a120b] uppercase tracking-tighter leading-tight drop-shadow-sm
                 `}>
-                  {lang === 'zh' ? char.name : (char.nameEn || char.name)}
+                  {t(char.name, char.nameEn)}
                 </h2>
               </div>
               
@@ -132,10 +134,10 @@ export const LotRCharacters: React.FC = () => {
                 <div className="bg-black/5 p-5 md:p-8 border-l-4 md:border-l-8 border-[#d4af37] relative">
                     <div className="absolute -top-3 -left-3 md:-top-5 md:-left-5 text-[#d4af37] opacity-20"><Award size={32} md={42} /></div>
                     <p className={`
-                      ${lang === 'zh' ? 'text-lg md:text-xl' : 'text-base md:text-lg font-fantasy italic'}
+                      ${language === Language.ZH ? 'text-lg md:text-xl' : 'text-base md:text-lg font-fantasy italic'}
                       leading-relaxed text-[#2c1a0a]
                     `}>
-                      "{lang === 'zh' ? char.description : (char.descriptionEn || char.description)}"
+                      "{t(char.description, char.descriptionEn)}"
                     </p>
                 </div>
 
@@ -143,25 +145,25 @@ export const LotRCharacters: React.FC = () => {
                 <div className="grid grid-cols-2 gap-8 md:gap-12 font-mono uppercase tracking-widest">
                     <div className="space-y-2 md:space-y-3">
                         <span className="text-[10px] md:text-[11px] font-black opacity-40 block flex items-center gap-2 tracking-[0.15em]">
-                          <Zap size={14} className="text-[#d4af37]"/> {lang === 'zh' ? '阵营' : 'Faction'}
+                          <Zap size={14} className="text-[#d4af37]"/> {t('阵营', 'Faction')}
                         </span>
                         <span className={`
-                          ${lang === 'zh' ? 'text-lg md:text-2xl font-title' : 'text-base md:text-lg font-fantasy font-bold'}
+                          ${language === Language.ZH ? 'text-lg md:text-2xl font-title' : 'text-base md:text-lg font-fantasy font-bold'}
                           pb-1 border-b border-black/10 block transition-colors 
                           ${char.faction === '黑暗势力' ? 'text-red-900' : 'text-blue-900'}
                         `}>
-                            {lang === 'zh' ? char.faction : (char.factionEn || char.faction)}
+                            {t(char.faction, char.factionEn)}
                         </span>
                     </div>
                     <div className="space-y-2 md:space-y-3">
                         <span className="text-[10px] md:text-[11px] font-black opacity-40 block flex items-center gap-2 tracking-[0.15em]">
-                          <User size={14} className="text-[#d4af37]"/> {lang === 'zh' ? '种族' : 'Species'}
+                          <User size={14} className="text-[#d4af37]"/> {t('种族', 'Species')}
                         </span>
                         <span className={`
-                          ${lang === 'zh' ? 'text-lg md:text-2xl font-title' : 'text-base md:text-lg font-fantasy font-bold'}
+                          ${language === Language.ZH ? 'text-lg md:text-2xl font-title' : 'text-base md:text-lg font-fantasy font-bold'}
                           pb-1 border-b border-black/10 block text-[#1a120b]
                         `}>
-                            {lang === 'zh' ? char.type : (char.typeEn || char.type)}
+                            {t(char.type, char.typeEn)}
                         </span>
                     </div>
                 </div>
@@ -170,13 +172,13 @@ export const LotRCharacters: React.FC = () => {
                 {(char.deeds || char.deedsEn) && (
                   <div className="pt-6 md:pt-8 border-t border-black/5">
                     <h4 className="font-mono text-[10px] md:text-[11px] font-black opacity-30 uppercase tracking-[0.3em] mb-3 md:mb-4">
-                      {lang === 'zh' ? '史诗事迹' : 'LEGENDARY SAGA'}
+                      {t('史诗事迹', 'LEGENDARY SAGA')}
                     </h4>
                     <p className={`
-                      ${lang === 'zh' ? 'text-base md:text-lg' : 'text-sm md:text-base font-fantasy italic'}
+                      ${language === Language.ZH ? 'text-base md:text-lg' : 'text-sm md:text-base font-fantasy italic'}
                       text-[#5c4d3c] leading-relaxed
                     `}>
-                      {lang === 'zh' ? char.deeds : char.deedsEn}
+                      {t(char.deeds, char.deedsEn)}
                     </p>
                   </div>
                 )}
@@ -201,7 +203,9 @@ export const LotRCharacters: React.FC = () => {
                     </button>
                   </div>
                   <div className="text-right">
-                      <span className="block font-mono text-[9px] md:text-[10px] opacity-40 uppercase tracking-[0.2em] mb-1">{lang === 'zh' ? '纪元定位' : 'Chronicle Position'}</span>
+                      <span className="block font-mono text-[9px] md:text-[10px] opacity-40 uppercase tracking-[0.2em] mb-1">
+                        {t('纪元定位', 'Chronicle Position')}
+                      </span>
                       <span className="block font-uncial text-xl md:text-2xl font-bold text-[#1a120b]">{currentPage + 1} / {LOTR_CHARACTERS.length}</span>
                   </div>
               </div>

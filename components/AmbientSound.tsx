@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
 
 export const AmbientSound: React.FC = () => {
+  const { t } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -109,7 +111,7 @@ export const AmbientSound: React.FC = () => {
       <button 
         onClick={toggleSound}
         className="bg-[#2c241b] text-[#e3dcd2] p-3 rounded-full shadow-lg hover:bg-[#4a3b2a] transition-all border border-[#8a7a5f] opacity-80 hover:opacity-100"
-        title={isPlaying ? "Silence the spirits" : "Summon the atmosphere"}
+        title={isPlaying ? t("静默灵魂", "Silence the spirits") : t("召唤氛围", "Summon the atmosphere")}
       >
         {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </button>

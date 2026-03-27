@@ -5,15 +5,17 @@ import { LOTR_STORY } from '../constants';
 import { LotRStoryPage } from '../types';
 import { GenerativeImage } from './GenerativeImage';
 import { ChevronLeft, ChevronRight, BookOpen, Languages } from 'lucide-react';
+import { useLanguage } from '../src/contexts/LanguageContext';
+import { Language } from '../types';
 
 interface LotRStoryProps {
   part: 'part1' | 'part2' | 'part3';
 }
 
 export const LotRStory: React.FC<LotRStoryProps> = ({ part }) => {
+  const { language, setLanguage, t } = useLanguage();
   const pages = LOTR_STORY[part];
   const [currentPage, setCurrentPage] = useState(0);
-  const [lang, setLang] = useState<'zh' | 'en'>('zh');
   const [embers, setEmbers] = useState<{id: number, left: string, delay: string}[]>([]);
   const [shimmer, setShimmer] = useState(false);
 
@@ -89,11 +91,11 @@ export const LotRStory: React.FC<LotRStoryProps> = ({ part }) => {
 
         {/* Language Toggle */}
         <button 
-          onClick={() => setLang(l => l === 'zh' ? 'en' : 'zh')}
+          onClick={() => setLanguage(language === Language.ZH ? Language.EN : Language.ZH)}
           className="absolute top-6 right-20 z-40 bg-[#1a120b] text-[#d4af37] px-4 py-2 rounded-sm flex items-center gap-2 hover:scale-105 transition-all font-mono text-[10px] shadow-2xl border border-[#d4af37]/30 font-bold uppercase tracking-widest"
         >
           <Languages size={14} />
-          {lang === 'zh' ? 'EN' : '中文'}
+          {language === Language.ZH ? 'EN' : '中文'}
         </button>
 
         {/* Left Page: Illustration */}
@@ -109,7 +111,7 @@ export const LotRStory: React.FC<LotRStoryProps> = ({ part }) => {
             >
               <GenerativeImage 
                 initialPrompt={page.imagePrompt}
-                alt={lang === 'zh' ? page.title : page.titleEn}
+                alt={t(page.title, page.titleEn)}
                 stylePreset="LOTR_VINTAGE"
                 className="w-full h-full object-cover grayscale-[0.2]"
               />
@@ -123,7 +125,7 @@ export const LotRStory: React.FC<LotRStoryProps> = ({ part }) => {
         <div className="w-full md:w-[52%] h-1/2 md:h-full p-8 md:p-20 flex flex-col relative overflow-y-auto scrollbar-vintage z-10 bg-transparent">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`${page.id}-${lang}`}
+              key={`${page.id}-${language}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
@@ -134,23 +136,23 @@ export const LotRStory: React.FC<LotRStoryProps> = ({ part }) => {
                 <div className="flex items-center gap-3 text-black/40 border-b border-black/10 pb-2">
                     <BookOpen size={18} />
                     <span className="font-mono text-[10px] uppercase tracking-[0.5em] font-black">
-                        {isSummary ? (lang === 'zh' ? '西境纪事 · 序' : 'WESTMARCH · PROLOGUE') : `RECORD 0${page.id}`}
+                        {isSummary ? t('西境纪事 · 序', 'WESTMARCH · PROLOGUE') : `RECORD 0${page.id}`}
                     </span>
                 </div>
                 <h2 className={`
-                  ${lang === 'en' ? 'font-uncial' : 'font-title'}
+                  ${language === Language.EN ? 'font-uncial' : 'font-title'}
                   text-3xl md:text-5xl font-black text-[#1a120b] uppercase leading-tight drop-shadow-md
                 `}>
-                  {lang === 'zh' ? page.title : page.titleEn}
+                  {t(page.title, page.titleEn)}
                 </h2>
               </div>
               
               <div className="flex-1">
                 <p className={`
-                  ${lang === 'zh' ? 'text-xl md:text-2xl tracking-wide leading-[1.8]' : 'text-lg md:text-xl leading-[1.8] font-fantasy italic'}
+                  ${language === Language.ZH ? 'text-xl md:text-2xl tracking-wide leading-[1.8]' : 'text-lg md:text-xl leading-[1.8] font-fantasy italic'}
                   text-[#2c1a0a] text-justify first-letter:text-8xl first-letter:font-title first-letter:mr-4 first-letter:float-left first-letter:text-[#1a120b] first-letter:leading-none
                 `}>
-                  {lang === 'zh' ? page.content : page.contentEn}
+                  {t(page.content, page.contentEn)}
                 </p>
               </div>
 
